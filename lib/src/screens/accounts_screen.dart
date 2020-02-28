@@ -1,0 +1,114 @@
+import 'package:flutter/material.dart';
+import 'package:meaccountingfinal/src/blocs/accounts_bloc.dart';
+import 'package:meaccountingfinal/src/models/account_model.dart';
+import 'package:meaccountingfinal/src/screens/add_new_account_screen.dart';
+import 'package:meaccountingfinal/src/screens/edit_account_screen.dart';
+
+class AccountsScreen extends StatelessWidget {
+  /**
+   * Widget to show Accounts Screen
+   * 
+   */
+
+  final bloc = AccountsBloc();
+
+  // TODO: make some helper methods for UI elements to make code cleaner
+  // TODO: make accounts screen have new accounts added need to be refreshed
+  @override
+  Widget build(BuildContext context) {
+    /**
+     * Build Scaffold to hold all elements of screen like Accounts List
+     * @param BuildContext
+     * @return Widget
+     */
+
+    // global key for pointing to state of scaffold
+    // in order to show a SnackBar
+    final key = new GlobalKey<ScaffoldState>();
+
+    return Scaffold(
+      key: key,
+      appBar: AppBar(
+        title: Text("Accounts"),
+        centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: Colors.greenAccent,
+        onPressed: () {
+          // Navigate to add new Account Screen
+          // when user clicked at floating action add button
+          Navigator.push(context,
+              MaterialPageRoute(builder: (ctx) => AddNewAccountScreen()));
+        },
+      ),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: StreamBuilder(
+          stream: bloc.accounts,
+          builder:
+              (BuildContext ctx, AsyncSnapshot<List<AccountModel>> snapshot) {
+            if (snapshot.hasData) {
+              return RefreshIndicator(
+                child: ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext ctx, int index) {
+                    /**
+                     * build a Dissmissible ListTile for every account elements comes from Stream
+                     */
+                    AccountModel account = snapshot.data[index];
+                    return Dismissible(
+                      key: Key(account.title),
+                      child: ListTile(
+                        onTap: () {
+                          // navigate user to EditAccountScreen while passing tapped account model
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditAccountScreen(account)));
+                        },
+                        title: Text(account.title),
+                        subtitle: Row(
+                          children: <Widget>[
+                            Text(account.cardNumber.toString())
+                          ],
+                        ),
+                        trailing: Text(account.initalAmount.toString() + " T"),
+                      ),
+                      background: Container(
+                          color: Colors.red,
+                          child: Row(children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Icon(Icons.delete),
+                          ])),
+                      secondaryBackground: Container(
+                          color: Colors.red,
+                          child: Row(children: [
+                            Icon(Icons.delete),
+                            SizedBox(width: 20),
+                          ], mainAxisAlignment: MainAxisAlignment.end)),
+                      onDismissed: (direction) {
+                        bloc.deleteAccountFromDB(account.id);
+                        key.currentState.showSnackBar(new SnackBar(
+                            content: Text("Account " +
+                                account.title +
+                                " deleted successfully!")));
+                      },
+                    );
+                  },
+                ),
+                onRefresh: () async {
+                  return bloc.getAllAccounts();
+                },
+              );
+            } else
+              return Center(child: CircularProgressIndicator());
+          },
+        ),
+      ),
+    );
+  }
+}
