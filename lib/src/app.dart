@@ -13,6 +13,8 @@ class App extends StatelessWidget {
      */
     return MaterialApp(
       title: "MeAccouting",
+      theme: ThemeData(primaryColor: Colors.greenAccent),
+      
       home: HomeScreen(),
     );
   }
