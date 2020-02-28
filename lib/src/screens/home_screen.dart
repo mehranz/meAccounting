@@ -17,7 +17,43 @@ class HomeScreen extends StatelessWidget {
         title: Text("MeAccounting!"),
         centerTitle: true,
       ),
-      body: Container(),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            FlatButton.icon(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => ExpensesScreen()));
+                },
+                icon: Icon(
+                  Icons.attach_money,
+                  color: Colors.greenAccent,
+                  size: 35,
+                ),
+                // color: Colors.greenAccent,
+                label: Text("Expenses",
+                style: TextStyle(fontSize: 20),),
+                padding: EdgeInsets.all(50),
+                ),
+
+                FlatButton.icon(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => AccountsScreen()));
+                },
+                icon: Icon(
+                  Icons.account_balance,
+                  color: Colors.greenAccent,
+                  size: 35,
+                ),
+                // color: Colors.greenAccent,
+                label: Text("Accounts",
+                style: TextStyle(fontSize: 20),),
+                padding: EdgeInsets.all(50),
+                ),
+          ],
+        ),
+      ),
     );
   }
 }
