@@ -18,8 +18,10 @@ class Repo {
 
   Future deleteAccount(int id) => dao.deleteAccount(id);
 
-  Future getAccountByID(int id) => dao.getAccountByID(id);
+  Future<AccountModel> getAccountByID(int id) => dao.getAccountByID(id);
 
   Future updateAccount(AccountModel account) => dao.updateAccount(account);
   
+  Future getAllAccountsAmount() => dao.getAllAccountsAmount();
+
 }
