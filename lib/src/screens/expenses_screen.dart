@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:meaccountingfinal/src/blocs/expenses_bloc.dart';
+import 'package:meaccountingfinal/src/models/expense_model.dart';
+import 'package:meaccountingfinal/src/screens/add_expense_screen.dart';
 
 class ExpensesScreen extends StatelessWidget {
+  final bloc = ExpensesBloc();
   /**
    * Widget to hold expenses screen's elements
    * 
@@ -9,11 +13,10 @@ class ExpensesScreen extends StatelessWidget {
    * 
    */
 
-  // TODO: Create Helper Methods to make code clean
-  // TODO: Add Logic to this section instead of just showing mock data
+  // TODO: Create Helper Methods for UI to make code clean
   @override
   Widget build(BuildContext context) {
-    /**
+    /*
      * Build Scaffold widget which contains all elements of this screen
      * @param BuildContext
      * @return Widget
@@ -34,81 +37,106 @@ class ExpensesScreen extends StatelessWidget {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.all(10.0),
-        child: ListView(
-          children: <Widget>[
-            Dismissible(
-              key: Key("First Expense"),
-              child: ListTile(
-                title: Text("First Expense"),
-                subtitle: Text("Credit Card"),
-                trailing: Text("310, 000 T"),
-              ),
-              background: Container(color:  Colors.red,
-              child: Row(children: [SizedBox(width: 20,), Icon(Icons.delete),])),
-              secondaryBackground: Container(color:  Colors.red,
-              child: Row(children: [ Icon(Icons.delete), SizedBox(width: 20),], mainAxisAlignment: MainAxisAlignment.end)),
-              
-              onDismissed: (DismissDirection direction) {
-                // delete item
-              },
-            ),
-
-            Dismissible(
-              key: Key("Second Expense"),
-              child: ListTile(
-                title: Text("Second Expense"),
-                subtitle: Text("Credit Card"),
-                trailing: Text("230, 000 T"),
-              ),
-              background: Container(color:  Colors.red,
-              child: Row(children: [SizedBox(width: 20,), Icon(Icons.delete),])),
-              secondaryBackground: Container(color:  Colors.red,
-              child: Row(children: [ Icon(Icons.delete), SizedBox(width: 20),], mainAxisAlignment: MainAxisAlignment.end)),
-              
-              onDismissed: (DismissDirection direction) {
-                // delete item
-              },
-            ),
-
-            Dismissible(
-              key: Key("Third Expense"),
-              child: ListTile(
-                title: Text("Third Expense"),
-                subtitle: Text("Credit Card"),
-                trailing: Text("80, 000 T"),
-              ),
-              background: Container(color:  Colors.red,
-              child: Row(children: [SizedBox(width: 20,), Icon(Icons.delete),])),
-              secondaryBackground: Container(color:  Colors.red,
-              child: Row(children: [ Icon(Icons.delete), SizedBox(width: 20),], mainAxisAlignment: MainAxisAlignment.end)),
-              
-              onDismissed: (DismissDirection direction) {
-                // delete item
-              },
-            ),
-
-            Dismissible(
-              key: Key("Forth Expense"),
-              child: ListTile(
-                title: Text("Forth Expense"),
-                subtitle: Text("Credit Card"),
-                trailing: Text("110, 000 T"),
-              ),
-              background: Container(color:  Colors.red,
-              child: Row(children: [SizedBox(width: 20,), Icon(Icons.delete),])),
-              secondaryBackground: Container(color:  Colors.red,
-              child: Row(children: [ Icon(Icons.delete), SizedBox(width: 20),], mainAxisAlignment: MainAxisAlignment.end)),
-              
-              onDismissed: (DismissDirection direction) {
-                // delete item
-              },
-            ),
-
-            
-          ],
-        ),
+        child: createExpensesList(),
       ),
+    );
+  }
+
+  Widget createExpensesList() {
+    /*
+     * method to create stream builder in order to read from expenses stream
+     * and show all expenses comes from repository sources (database here)
+     * 
+     * @return Widget
+     */
+
+    bloc.getAllExpenses();
+    return StreamBuilder(
+      stream: bloc.expenses,
+      builder:
+          (BuildContext context, AsyncSnapshot<List<ExpenseModel>> snapshot) {
+        if (snapshot.hasData) {
+          return RefreshIndicator(
+            child: ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                // create alias variables in order to access easily to expense model
+                // and created_at datetime field
+                final ExpenseModel _exp = snapshot.data[index];
+                final DateTime _created_at = DateTime.parse(_exp.createdAt);
+
+                return Dismissible(
+                  key: Key(_exp.title),
+                  child: Container(
+                      child: Card(
+                    elevation: 10,
+                    child: ListTile(
+                      title: Text(_exp.title,
+                          style: TextStyle(color: Colors.white)),
+                      subtitle: Row(children: [
+                        Icon(Icons.account_balance,
+                            size: 16, color: Colors.white),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(_exp.accountTitle,
+                            style: TextStyle(color: Colors.white)),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Icon(
+                          Icons.calendar_today,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          _created_at.year.toString() +
+                              "-" +
+                              _created_at.month.toString() +
+                              "-" +
+                              _created_at.day.toString() +
+                              " " +
+                              _created_at.hour.toString() +
+                              ":" +
+                              _created_at.minute.toString(),
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ]),
+                      trailing: Text(_exp.amount.toString() + " T",
+                          style: TextStyle(color: Colors.white)),
+                    ),
+                    color: Color(0XFF406B96),
+                    margin: EdgeInsets.all(8),
+                  )),
+                  background: Container(
+                      color: Colors.red,
+                      child: Row(children: [
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Icon(Icons.delete),
+                      ])),
+                  secondaryBackground: Container(
+                      color: Colors.red,
+                      child: Row(children: [
+                        Icon(Icons.delete),
+                        SizedBox(width: 20),
+                      ], mainAxisAlignment: MainAxisAlignment.end)),
+                  onDismissed: (DismissDirection direction) {
+                    // delete item
+                  },
+                );
+              },
+            ),
+            onRefresh: () => bloc.getAllExpenses(),
+          );
+        }
+        // show CircularProgressIndicator if stream haven't data (data doesn't loaded yet or not exists at all)
+        return CircularProgressIndicator();
+      },
     );
   }
 }
