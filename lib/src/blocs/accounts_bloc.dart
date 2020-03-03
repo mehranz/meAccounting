@@ -15,13 +15,13 @@ class AccountsBloc extends Object with AccountValidator {
   final _repo = Repo();
 
   // create streams for every state wanted to be controlled
-  final StreamController _accountsController = StreamController<List<AccountModel>>();
+  final StreamController _accountsController =
+      StreamController<List<AccountModel>>();
   final StreamController _titleController = StreamController<String>();
   final StreamController _initialAmountController = StreamController<int>();
   final StreamController _cardNumberController = StreamController<int>();
-  
-  final StreamController _totalBankAmountController = StreamController<int>();
 
+  final StreamController _totalBankAmountController = StreamController<int>();
 
   AccountsBloc() {
     getAllAccounts();
@@ -30,18 +30,20 @@ class AccountsBloc extends Object with AccountValidator {
   // ============ getters section
   Stream<List<AccountModel>> get accounts => _accountsController.stream;
 
-  Stream<String> get titleStream => _titleController.stream.transform(titleValidator);
+  Stream<String> get titleStream =>
+      _titleController.stream.transform(titleValidator);
   Function(String) get addTitle => _titleController.sink.add;
 
-  Stream<int> get initialAmountStream => _initialAmountController.stream.transform(amountValidator);
+  Stream<int> get initialAmountStream =>
+      _initialAmountController.stream.transform(amountValidator);
   Function(int) get addInitialAmount => _initialAmountController.sink.add;
 
-  Stream<int> get cardNumberStream => _cardNumberController.stream.transform(cardNumberValidator);
+  Stream<int> get cardNumberStream =>
+      _cardNumberController.stream.transform(cardNumberValidator);
   Function(int) get addCardNumber => _cardNumberController.sink.add;
 
   Stream<int> get totalBankAmount => _totalBankAmountController.stream;
   // ======== end getters section
-
 
   void getAllAccounts() async {
     /*
@@ -57,7 +59,6 @@ class AccountsBloc extends Object with AccountValidator {
     var _accounts = await _repo.getAllAccounts();
     _accountsController.sink.add(_accounts);
   }
-
 
   void addAccountToDB(AccountModel account) {
     /*
@@ -104,7 +105,7 @@ class AccountsBloc extends Object with AccountValidator {
      * and add them to _totalBankAmountController stream so streambuilders can
      * build themselvs when new data came out.
      */
-    
+
     var _totalBankAmount = await _repo.getAllAccountsAmount();
     _totalBankAmountController.sink.add(_totalBankAmount);
   }
@@ -116,7 +117,7 @@ class AccountsBloc extends Object with AccountValidator {
      * @params
      * @return
      */
-    
+
     _accountsController.close();
     _titleController.close();
     _initialAmountController.close();
