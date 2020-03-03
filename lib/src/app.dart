@@ -8,13 +8,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /**
+    /*
      * build method of app widget to get together whole app
      */
     return MaterialApp(
       title: "MeAccouting",
-      theme: ThemeData(primaryColor: Colors.greenAccent),
-      
+      theme: ThemeData(
+          primaryColor: Color(0XFF18222C),
+          scaffoldBackgroundColor: Color(0XFF20303F)),
       home: HomeScreen(),
     );
   }
