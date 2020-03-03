@@ -5,7 +5,7 @@ import 'package:meaccountingfinal/src/screens/add_new_account_screen.dart';
 import 'package:meaccountingfinal/src/screens/edit_account_screen.dart';
 
 class AccountsScreen extends StatelessWidget {
-  /**
+  /*
    * Widget to show Accounts Screen
    * 
    */
@@ -34,7 +34,6 @@ class AccountsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        backgroundColor: Colors.greenAccent,
         onPressed: () {
           // Navigate to add new Account Screen
           // when user clicked at floating action add button
@@ -59,23 +58,33 @@ class AccountsScreen extends StatelessWidget {
                     AccountModel account = snapshot.data[index];
                     return Dismissible(
                       key: Key(account.title),
-                      child: ListTile(
-                        onTap: () {
-                          // navigate user to EditAccountScreen while passing tapped account model
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      EditAccountScreen(account)));
-                        },
-                        title: Text(account.title),
-                        subtitle: Row(
-                          children: <Widget>[
-                            Text(account.cardNumber.toString())
-                          ],
-                        ),
-                        trailing: Text(account.initalAmount.toString() + " T"),
-                      ),
+                      child: Card(
+                          color: Color(0XFF406B96),
+                          child: ListTile(
+                            onTap: () {
+                              // navigate user to EditAccountScreen while passing tapped account model
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditAccountScreen(account)));
+                            },
+                            title: Text(
+                              account.title + " - id : " + account.id.toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            subtitle: Row(
+                              children: <Widget>[
+                                Icon(Icons.credit_card, color: Colors.white, size: 16,),
+                                SizedBox(width: 5,),
+                                Text(account.cardNumber.toString(),
+                                    style: TextStyle(color: Colors.white))
+                              ],
+                            ),
+                            trailing: Text(
+                                account.initalAmount.toString() + " T",
+                                style: TextStyle(color: Colors.white)),
+                          )),
                       background: Container(
                           color: Colors.red,
                           child: Row(children: [
