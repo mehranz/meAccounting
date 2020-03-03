@@ -63,9 +63,23 @@ class HomeScreen extends StatelessWidget {
         margin: EdgeInsets.all(20.0),
         child: ListView(
           children: <Widget>[
-            createCard("Today Expenses", "730,000T"),
-            createCard("Today Incomes", "950,000T"),
-            createCard("Your bank amount", "24,670,000T"),
+            StreamBuilder(
+              stream: expenseBloc.totalExpenseOfDay,
+              // TODO: check if snapshot has data and if it hasn't show a ProgressIndicator
+              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                return createCard(
+                    "Today Expenses", snapshot.data.toString() + " T");
+              },
+            ),
+            createCard("Today Incomes (Mock)", "950000T"),
+            StreamBuilder(
+                stream: accountsBloc.totalBankAmount,
+
+                // TODO: check if snapshot has data and if it hasn't show a ProgressIndicator
+                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  return createCard(
+                      "Total Balance", snapshot.data.toString() + " T");
+                }),
           ],
         ),
       ),
