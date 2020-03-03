@@ -56,10 +56,24 @@ class DatabaseProvider {
 
     // create accounts table
     await db.execute("CREATE TABLE accounts ("
-      "id INTEGER PRIMARY KEY, "
+      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
       "title TEXT, "
       "initalAmount INT, "
       "cardNumber INT"
     ")");
+
+    // create expenses table
+    await db.execute("CREATE TABLE expenses ("
+      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+      "title TEXT, "
+      "amount INT, "
+      "account_id INT, "
+      "descriptions TEXT, "
+      "created_at DATETIME, "
+      "FOREIGN KEY (account_id) REFERENCES accounts(id)"
+    ")");
+
+    // enable forigen keys
+    await db.execute('PRAGMA foreign_keys = ON');
   }
 }
