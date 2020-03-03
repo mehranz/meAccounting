@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:meaccountingfinal/src/models/expense_model.dart';
-import 'package:meaccountingfinal/src/res/database/database_provider.dart';
+import 'package:meAccounting/src/models/expense_model.dart';
+import 'package:meAccounting/src/res/database/database_provider.dart';
 
 class ExpensesDAO {
   /*

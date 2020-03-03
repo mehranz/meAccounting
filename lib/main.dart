@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meaccountingfinal/src/app.dart';
+import 'package:meAccounting/src/app.dart';
 
 void main() {
   /*

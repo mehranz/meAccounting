@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meaccountingfinal/src/blocs/expenses_bloc.dart';
-import 'package:meaccountingfinal/src/models/expense_model.dart';
+import 'package:meAccounting/src/blocs/expenses_bloc.dart';
+import 'package:meAccounting/src/models/expense_model.dart';
 
 class AddNewExpensesScreen extends StatelessWidget {
   /*

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meaccountingfinal/src/blocs/accounts_bloc.dart';
-import 'package:meaccountingfinal/src/models/account_model.dart';
-import 'package:meaccountingfinal/src/screens/add_new_account_screen.dart';
-import 'package:meaccountingfinal/src/screens/edit_account_screen.dart';
+import 'package:meAccounting/src/blocs/accounts_bloc.dart';
+import 'package:meAccounting/src/models/account_model.dart';
+import 'package:meAccounting/src/screens/add_new_account_screen.dart';
+import 'package:meAccounting/src/screens/edit_account_screen.dart';
 
 class AccountsScreen extends StatelessWidget {
   /*

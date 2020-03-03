@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meaccountingfinal/src/blocs/accounts_bloc.dart';
-import 'package:meaccountingfinal/src/blocs/expenses_bloc.dart';
-import 'package:meaccountingfinal/src/screens/accounts_screen.dart';
-import 'package:meaccountingfinal/src/screens/expenses_screen.dart';
+import 'package:meAccounting/src/blocs/accounts_bloc.dart';
+import 'package:meAccounting/src/blocs/expenses_bloc.dart';
+import 'package:meAccounting/src/screens/accounts_screen.dart';
+import 'package:meAccounting/src/screens/expenses_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   /*

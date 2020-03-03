@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:meaccountingfinal/src/blocs/validators/account_validator.dart';
-import 'package:meaccountingfinal/src/models/account_model.dart';
-import 'package:meaccountingfinal/src/res/repo.dart';
+import 'package:meAccounting/src/blocs/validators/account_validator.dart';
+import 'package:meAccounting/src/models/account_model.dart';
+import 'package:meAccounting/src/res/repo.dart';
 
 class AccountsBloc extends Object with AccountValidator {
   /*

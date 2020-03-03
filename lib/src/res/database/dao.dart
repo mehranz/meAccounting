@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:meaccountingfinal/src/models/account_model.dart';
+import 'package:meAccounting/src/models/account_model.dart';
 import './database_provider.dart';
 
 class DAO {

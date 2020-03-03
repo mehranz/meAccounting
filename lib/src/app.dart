@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meaccountingfinal/src/screens/home_screen.dart';
+import 'package:meAccounting/src/screens/home_screen.dart';
 
 class App extends StatelessWidget {
   /*
