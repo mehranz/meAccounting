@@ -5,11 +5,12 @@ meAccounting is a Personal Accounting app Written in Flutter that Simply Helps y
 - Currently, The App is Unstable and Highly under Development. So Feel Free to Contribute. Your PRs Gonna make me Happy :)
 ```
 
-
-_So I know App's UI may be bad! that's because I'm not front-end guy! so if you can make it beautiful, It'll be great!_
+_I know App's UI may be bad! that's because I'm not front-end guy! so if you can make it beautiful, It'll be great!_
 
 There are some screenshot from App's UI above:
 ![meAccountingScreenshots](./screenshots/allscreenshots_v0.0.1alpha.png)
+
+if you are looking for apk files, [you can find them here.](https://github.com/meh666ran/meAccounting/releases)
 
 ### TODOs:
 - [ ] add Incomes
