@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meaccountingfinal/src/blocs/accounts_bloc.dart';
+import 'package:meaccountingfinal/src/blocs/expenses_bloc.dart';
 import 'package:meaccountingfinal/src/screens/accounts_screen.dart';
 import 'package:meaccountingfinal/src/screens/expenses_screen.dart';
 
@@ -6,6 +8,10 @@ class HomeScreen extends StatelessWidget {
   /*
    * Home Screen Widget to build HomeScreen of app!
    */
+
+  // TODO: probably it's better to make a bloc just for this screen
+  final expenseBloc = ExpensesBloc();
+  final accountsBloc = AccountsBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -15,50 +21,59 @@ class HomeScreen extends StatelessWidget {
     * @return Widget
     */
 
+    expenseBloc.getTotalExpensesOfToday();
+    accountsBloc.getTotalBankAmount();
+
     // TODO: Create Some Helper Methods to make code clean
-    // TODO: Add Logic to this section instead of just showing mock data
     return Scaffold(
       appBar: AppBar(
         title: Text("Summary"),
         centerTitle: true,
       ),
       drawer: Drawer(
+          child: Container(
+        color: Color(0XFF20303F),
         child: ListView(
           children: <Widget>[
             FlatButton.icon(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => ExpensesScreen()));
-                },
-                icon: Icon(
-                  Icons.attach_money,
-                  color: Colors.greenAccent,
-                  size: 35,
-                ),
-                // color: Colors.greenAccent,
-                label: Text("Expenses",
-                style: TextStyle(fontSize: 20),),
-                padding: EdgeInsets.all(50),
-                ),
-
-                FlatButton.icon(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => AccountsScreen()));
-                },
-                icon: Icon(
-                  Icons.account_balance,
-                  color: Colors.greenAccent,
-                  size: 35,
-                ),
-                // color: Colors.greenAccent,
-                label: Text("Accounts",
-                style: TextStyle(fontSize: 20),),
-                padding: EdgeInsets.all(50),
-                ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => ExpensesScreen()));
+              },
+              icon: Icon(
+                Icons.attach_money,
+                color: Colors.white,
+                size: 35,
+              ),
+              // color: Colors.greenAccent,
+              label: Text(
+                "Expenses",
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              padding: EdgeInsets.all(50),
+            ),
+            FlatButton.icon(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => AccountsScreen()));
+              },
+              icon: Icon(
+                Icons.account_balance,
+                color: Colors.white,
+                size: 35,
+              ),
+              // color: Colors.greenAccent,
+              label: Text(
+                "Accounts",
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              padding: EdgeInsets.all(50),
+            ),
           ],
         ),
-      ),
+      )),
       body: Container(
         margin: EdgeInsets.all(20.0),
         child: ListView(
@@ -95,13 +110,10 @@ class HomeScreen extends StatelessWidget {
      */
     return Card(
       margin: EdgeInsets.all(10.0),
-      elevation: 1.0,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(50.0))),
+      elevation: 10.0,
+      color: Color(0XFF406B96),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(
-          decoration: BoxDecoration(
-              gradient: RadialGradient(
-                  colors: [Colors.greenAccent, Colors.greenAccent])),
           padding: EdgeInsets.all(5.0),
           child: Column(
             children: <Widget>[
@@ -110,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                   padding: EdgeInsets.all(5.0),
                   child: Text(
                     title,
-                    style: TextStyle(color: Colors.black, fontSize: 20.0),
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
                   ),
                 ),
               ),
@@ -119,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(5.0),
                   child: Text(cardValue,
-                      style: TextStyle(color: Colors.black54, fontSize: 24.0)),
+                      style: TextStyle(color: Colors.white, fontSize: 24.0)),
                 ),
               ),
               SizedBox(height: 35.0),
