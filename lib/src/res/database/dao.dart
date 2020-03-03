@@ -100,4 +100,22 @@ class DAO {
 
     return result;
   }
+
+  Future<int> getAllAccountsAmount() async {
+    /*
+     * getAllAccountsAmount gonna give you total amounts of all accounts,
+     * for using in summary screen
+     * @params
+     * @return Future<int>
+     */
+    final db = await databaseProvider.database;
+
+    int allAccountsAmount = 0;
+
+    List<Map<String, dynamic>> result = await db.rawQuery("SELECT initalAmount FROM accounts");
+
+    result.forEach((obj) => allAccountsAmount += obj['initalAmount']);
+
+    return allAccountsAmount;
+  }
 }
