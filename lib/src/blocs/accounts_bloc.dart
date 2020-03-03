@@ -19,6 +19,9 @@ class AccountsBloc extends Object with AccountValidator {
   final StreamController _titleController = StreamController<String>();
   final StreamController _initialAmountController = StreamController<int>();
   final StreamController _cardNumberController = StreamController<int>();
+  
+  final StreamController _totalBankAmountController = StreamController<int>();
+
 
   AccountsBloc() {
     getAllAccounts();
@@ -35,6 +38,8 @@ class AccountsBloc extends Object with AccountValidator {
 
   Stream<int> get cardNumberStream => _cardNumberController.stream.transform(cardNumberValidator);
   Function(int) get addCardNumber => _cardNumberController.sink.add;
+
+  Stream<int> get totalBankAmount => _totalBankAmountController.stream;
   // ======== end getters section
 
 
@@ -64,6 +69,7 @@ class AccountsBloc extends Object with AccountValidator {
      */
     _repo.createAccount(account);
     getAllAccounts();
+    getTotalBankAmount();
   }
 
   void deleteAccountFromDB(int id) {
@@ -76,6 +82,7 @@ class AccountsBloc extends Object with AccountValidator {
      */
     _repo.deleteAccount(id);
     getAllAccounts();
+    getTotalBankAmount();
   }
 
   void updateAccount(AccountModel account) {
@@ -88,6 +95,18 @@ class AccountsBloc extends Object with AccountValidator {
      */
     _repo.updateAccount(account);
     getAllAccounts();
+    getTotalBankAmount();
+  }
+
+  void getTotalBankAmount() async {
+    /*
+     * getTotalBankAmount Helper will get total amount of all accounts from db
+     * and add them to _totalBankAmountController stream so streambuilders can
+     * build themselvs when new data came out.
+     */
+    
+    var _totalBankAmount = await _repo.getAllAccountsAmount();
+    _totalBankAmountController.sink.add(_totalBankAmount);
   }
 
   dispose() {
@@ -102,5 +121,6 @@ class AccountsBloc extends Object with AccountValidator {
     _titleController.close();
     _initialAmountController.close();
     _cardNumberController.close();
+    _totalBankAmountController.close();
   }
 }
