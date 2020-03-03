@@ -23,6 +23,16 @@ class ExpensesScreen extends StatelessWidget {
         title: Text("Expenses"),
         centerTitle: true,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddNewExpensesScreen()));
+        },
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       body: Container(
         margin: EdgeInsets.all(10.0),
         child: ListView(
