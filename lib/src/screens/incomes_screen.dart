@@ -21,3 +21,16 @@ class IncomesScreen extends StatelessWidget {
       body: incomesListView(),
     );
   }
+
+  AppBar appBar() {
+    /*
+     * helper method to create material design App Bar for screen
+     * 
+     * @return AppBar
+     */
+
+    return AppBar(
+      title: Text("Incomes"),
+      centerTitle: true,
+    );
+  }
