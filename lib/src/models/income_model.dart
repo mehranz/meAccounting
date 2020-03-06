@@ -29,3 +29,19 @@ class IncomeModel {
     this.created_at,
     }
   );
+
+  IncomeModel.fromDbMap(Map<String, dynamic> dbResult)
+  /*
+   * fromDbMap Constructor in order to create income data model 
+   * with data comes from database
+   * 
+   * @params Map<String, dynamic>
+   */
+
+  : this.id = dbResult['id'],
+    this.title = dbResult['title'],
+    this.amount = dbResult['amount'],
+    this.account_id = dbResult['account_id'],
+    this.descriptions = dbResult['descriptions'],
+    this.created_at = dbResult['created_at'];
+}
