@@ -66,7 +66,7 @@ class DatabaseProvider {
      */
 
     // create accounts table
-    await db.execute("CREATE TABLE accounts ("
+    await db.execute("CREATE TABLE IF NOT EXISTS accounts ("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
       "title TEXT, "
       "initalAmount INT, "
@@ -74,7 +74,7 @@ class DatabaseProvider {
     ")");
 
     // create expenses table
-    await db.execute("CREATE TABLE expenses ("
+    await db.execute("CREATE TABLE IF NOT EXISTS expenses ("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
       "title TEXT, "
       "amount INT, "
