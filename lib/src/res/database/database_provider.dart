@@ -40,11 +40,22 @@ class DatabaseProvider {
       path,
       version: 1,
       onCreate: initDB,
+      onUpgrade: upgradeDB,
     );
 
     return db;
   }
 
+  upgradeDB(Database db, int oldVersion, int newVersion) {
+    /*
+     * method to upgrade database if version of currnet database 
+     * is higher than the one exist
+     * 
+     * @params Database, int, int
+     */
+
+    initDB(db, newVersion);
+  }
   initDB(Database db, int version) async {
     /*
      * initDB method is gonna create database tables 
