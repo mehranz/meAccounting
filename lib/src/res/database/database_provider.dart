@@ -56,6 +56,7 @@ class DatabaseProvider {
 
     initDB(db, newVersion);
   }
+
   initDB(Database db, int version) async {
     /*
      * initDB method is gonna create database tables 
@@ -67,22 +68,33 @@ class DatabaseProvider {
 
     // create accounts table
     await db.execute("CREATE TABLE IF NOT EXISTS accounts ("
-      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-      "title TEXT, "
-      "initalAmount INT, "
-      "cardNumber INT"
-    ")");
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "title TEXT, "
+        "initalAmount INT, "
+        "cardNumber INT"
+        ")");
 
     // create expenses table
     await db.execute("CREATE TABLE IF NOT EXISTS expenses ("
-      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-      "title TEXT, "
-      "amount INT, "
-      "account_id INT, "
-      "descriptions TEXT, "
-      "created_at DATETIME, "
-      "FOREIGN KEY (account_id) REFERENCES accounts(id)"
-    ")");
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "title TEXT, "
+        "amount INT, "
+        "account_id INT, "
+        "descriptions TEXT, "
+        "created_at DATETIME, "
+        "FOREIGN KEY (account_id) REFERENCES accounts(id)"
+        ")");
+
+    // create incomes table
+    await db.execute("CREATE TABLE IF NOT EXISTS incomes ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "title TEXT, "
+        "amount INT, "
+        "account_id INT, "
+        "descriptions TEXT, "
+        "created_at DATETIME, "
+        "FORIGEN KEY (account_id) REFERENCES accounts(id)"
+        ")");
 
     // enable forigen keys
     await db.execute('PRAGMA foreign_keys = ON');
