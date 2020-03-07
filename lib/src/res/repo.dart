@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/res/database/expenses_dao.dart';
+import 'package:meAccounting/src/res/database/incomes_dao.dart';
+import '../models/income_model.dart';
 
 import './database/dao.dart';
 import '../models/account_model.dart';
@@ -15,6 +17,7 @@ class Repo {
 
   final dao = DAO();
   final expensesDao = ExpensesDAO();
+  final incomesDao = IncomesDao();
 
   Future createAccount(AccountModel account) => dao.createAccount(account);
 
@@ -35,5 +38,9 @@ class Repo {
   Future getAllExpenses() => expensesDao.getAllExpenses();
 
   Future getTotalExpensesFrom(String from) => expensesDao.getTotalExpensesFrom(from);
+
+  // incomes section
+  Future createIncome(IncomeModel income) => incomesDao.createIncome(income);
+  Future getAllIncomes() => incomesDao.getAllIncomes();
   
 }
