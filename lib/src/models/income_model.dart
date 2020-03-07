@@ -44,4 +44,24 @@ class IncomeModel {
     this.account_id = dbResult['account_id'],
     this.descriptions = dbResult['descriptions'],
     this.created_at = dbResult['created_at'];
+    
+  Map<String, dynamic> toMap() {
+    /*
+     * Convert income data model to map
+     * in order to insert to database
+     * 
+     * @return Map<String, dynamic>
+     */
+
+    return {
+      'id': this.id,
+      'title': this.title,
+      'amount': this.amount,
+      'account_id': this.account_id,
+      'descriptions': this.descriptions,
+      'created_at': this.created_at
+    };
+
+  }
+  
 }
