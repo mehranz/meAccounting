@@ -3,6 +3,7 @@ import 'package:meAccounting/src/blocs/accounts_bloc.dart';
 import 'package:meAccounting/src/blocs/expenses_bloc.dart';
 import 'package:meAccounting/src/screens/accounts_screen.dart';
 import 'package:meAccounting/src/screens/expenses_screen.dart';
+import 'package:meAccounting/src/screens/incomes_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   /*
@@ -71,6 +72,26 @@ class HomeScreen extends StatelessWidget {
               ),
               padding: EdgeInsets.all(50),
             ),
+
+            FlatButton.icon(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => IncomesScreen()));
+              },
+              icon: Icon(
+                Icons.call_received,
+                color: Colors.white,
+                size: 35,
+              ),
+              // color: Colors.greenAccent,
+              label: Text(
+                "Incomes",
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              padding: EdgeInsets.all(50),
+            ),
+
           ],
         ),
       )),
