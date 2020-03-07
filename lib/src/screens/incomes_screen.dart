@@ -35,8 +35,18 @@ class IncomesScreen extends StatelessWidget {
     );
   }
   
-  // TODO: Implement a floating action button to navigate user to add new income screen
-  FloatingActionButton addNewIncomeFloatingButton() {}
+  FloatingActionButton addNewIncomeFloatingButton() {
+    /*
+     * helper method to create add income floating action button
+     * 
+     * @return FloatingActionButton
+     */
+    return FloatingActionButton(
+      // TODO: navigate to new income screen
+      onPressed: () => print("pressed"),
+      child: Icon(Icons.add),
+    );
+  }
 
   // TODO: Implement all incomes list view with data comes database (here it means a stream placed in bloc)
   StreamBuilder incomesListView() {}
