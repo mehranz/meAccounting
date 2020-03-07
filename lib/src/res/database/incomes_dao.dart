@@ -12,3 +12,17 @@ class IncomesDao {
   // in order to intract with database
   final databaseProvider = DatabaseProvider.databaseProvider;
 
+  Future<int> createIncome(IncomeModel income) async {
+    /*
+     * method to insert new income inside databse
+     * 
+     * @params IncomeModel
+     * @return Future<int>
+     */
+
+    final db = await databaseProvider.database;
+
+    var result = await db.insert("incomes", income.toMap());
+
+    return result;
+  }
