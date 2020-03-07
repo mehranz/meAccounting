@@ -26,3 +26,22 @@ class IncomesDao {
 
     return result;
   }
+
+  Future<List<IncomeModel>> getAllIncomes() async {
+    /*
+     * method to get all income objects from database
+     * and convert them to a list of IncomeModels
+     * 
+     * @return Future<List<IncomeModel>>
+     */
+    final db = await databaseProvider.database;
+
+    List<Map<String, dynamic>> result;
+    result = await db.query("incomes");
+
+    List<IncomeModel> incomes =
+        result.map((income) => IncomeModel.fromDbMap(income)).toList();
+
+    return incomes;
+  }
+}
