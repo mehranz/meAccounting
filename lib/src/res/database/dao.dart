@@ -64,6 +64,9 @@ class DAO {
     List<Map<String, dynamic>> databaseResult =
         await db.query("accounts", where: "id = ?", whereArgs: [id]);
 
+    // if query doesn't have any result returns null
+    if (databaseResult.length < 1) return null;
+
     // id column is unique in database so we're gonna have just one item per id 
     // inside databaseResult List and that's because index is always 0
     AccountModel _account = AccountModel.fromDBMap(databaseResult[0]);
