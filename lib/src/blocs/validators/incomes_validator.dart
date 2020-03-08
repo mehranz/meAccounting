@@ -33,3 +33,17 @@ class IncomesValidator {
     }
   }
 
+  static void _amountValidatorHandler(int value, EventSink sink) {
+    /*
+     * method to handle validation of amount field 
+     * 
+     * @params int, EventSink 
+     */
+    
+    if (value < 1) {
+      sink.addError("Amount Can't be less than one!");
+    }
+    else {
+      sink.add(value);
+    }
+  }
