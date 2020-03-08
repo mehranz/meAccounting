@@ -16,15 +16,15 @@ class IncomesBloc extends Object with IncomesValidator {
   // setter and getter for each controller's stream and its sink
   //
   // Getters for Title Controller
-  Stream<String> get title => _titleController.stream;
+  Stream<String> get title => _titleController.stream.transform(titleValidator);
   Function(String) get addTitle => _titleController.sink.add;
 
   // Getters for Amount Controller
-  Stream<int> get amount => _amountController.stream;
+  Stream<int> get amount => _amountController.stream.transform(amountValidator);
   Function(int) get addAmount => _amountController.sink.add;
 
   // Getters for Account Controller
-  Stream<int> get accountId => _accountIdController.stream;
+  Stream<int> get accountId => _accountIdController.stream.transform(accountIdValidator);
   Function(int) get addAccountId => _accountIdController.sink.add;
 
   // Getters for Descriptions Controller
