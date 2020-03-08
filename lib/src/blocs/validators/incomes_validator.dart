@@ -19,3 +19,17 @@ class IncomesValidator {
       StreamTransformer<int, int>.fromHandlers(
     handleData: _accountIdValidatorHandler,
   );
+
+  static void _titleValidatorHandler(String value, EventSink sink) {
+    /*
+      * method to handle validation of title field
+      * @params String, EventSink
+      */
+
+    if (value.length < 1) {
+      sink.addError("Title Can't be less than one character");
+    } else {
+      sink.add(value);
+    }
+  }
+
