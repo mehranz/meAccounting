@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import '../../res/repo.dart';
+
 class IncomesValidator {
   /*
    * class to provider validators releated to incomes
@@ -47,3 +51,20 @@ class IncomesValidator {
       sink.add(value);
     }
   }
+
+  static void _accountIdValidatorHandler(int accountID, EventSink sink) async {
+    /*
+     * method to handle validation of account id field
+     * it checks if account id entered exist in database
+     * 
+     * @params int, EventSink
+     */
+
+    if ( await Repo().getAccountByID(accountID) != null ){
+      sink.add(accountID);
+    }
+    else {
+      sink.addError("Account with ID $accountID not Found!");
+    }
+  }
+}
