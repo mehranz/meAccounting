@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:meAccounting/src/models/income_model.dart';
+import 'package:meAccounting/src/res/repo.dart';
+
 import 'validators/incomes_validator.dart';
 
 class IncomesBloc extends Object with IncomesValidator {
@@ -7,7 +10,11 @@ class IncomesBloc extends Object with IncomesValidator {
    * 
    */
 
+    // create an instance of repo in order to deal with database
+    final Repo _repo = Repo();
+
   // create stream for each state wanted to be controlled
+  final StreamController _incomesController = StreamController<List<IncomeModel>>();
   final StreamController _titleController = StreamController<String>();
   final StreamController _amountController = StreamController<int>();
   final StreamController _accountIdController = StreamController<int>();
@@ -15,6 +22,8 @@ class IncomesBloc extends Object with IncomesValidator {
 
   // setter and getter for each controller's stream and its sink
   //
+  Stream<List<IncomeModel>> get incomes => _incomesController.stream;
+
   // Getters for Title Controller
   Stream<String> get title => _titleController.stream.transform(titleValidator);
   Function(String) get addTitle => _titleController.sink.add;
