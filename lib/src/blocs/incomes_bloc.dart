@@ -9,7 +9,7 @@ class IncomesBloc extends Object with IncomesValidator {
    * Class to provide business logic in order to handle states releated to Incomes
    * 
    */
-
+    
     // create an instance of repo in order to deal with database
     final Repo _repo = Repo();
 
@@ -33,7 +33,7 @@ class IncomesBloc extends Object with IncomesValidator {
   Function(int) get addAmount => _amountController.sink.add;
 
   // Getters for Account Controller
-  Stream<int> get accountId => _accountIdController.stream.transform(accountIdValidator);
+  Stream<int> get accountId => _accountIdController.stream;
   Function(int) get addAccountId => _accountIdController.sink.add;
 
   // Getters for Descriptions Controller
@@ -69,11 +69,14 @@ class IncomesBloc extends Object with IncomesValidator {
     getAllIncomes();
   }
 
+
   dispose() {
     /*
      * method to close open streams
      * 
      */
+
+    _incomesController.close();
     _titleController.close();
     _amountController.close();
     _accountIdController.close();
