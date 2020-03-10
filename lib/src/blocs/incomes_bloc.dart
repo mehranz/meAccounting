@@ -49,6 +49,26 @@ class IncomesBloc extends Object with IncomesValidator {
     _incomesController.sink.add(_incomes);
   }
 
+  addNewIncome(IncomeModel income) async {
+    /*
+     * method to add new income to database and increase amount of account
+     * 
+     * @params IncomeModel
+     */
+
+    _repo.createIncome(income);
+
+    // Sum the account's amount which received income, by income's amount
+    await _repo.getAccountByID(income.account_id).then(
+      (account) {
+        account.initalAmount += income.amount;
+        _repo.updateAccount(account);
+      }
+    );
+
+    getAllIncomes();
+  }
+
   dispose() {
     /*
      * method to close open streams
