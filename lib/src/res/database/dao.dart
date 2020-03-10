@@ -21,7 +21,7 @@ class DAO {
      * @params AccountModel
      * @return Future<int>
      */
-    
+
     final db = await databaseProvider.database;
 
     var result = db.insert("accounts", account.toMap());
@@ -58,7 +58,7 @@ class DAO {
      * @param int
      * @return Future<AccountModel>
      */
-    
+
     final db = await databaseProvider.database;
 
     List<Map<String, dynamic>> databaseResult =
@@ -67,13 +67,13 @@ class DAO {
     // if query doesn't have any result returns null
     if (databaseResult.length < 1) return null;
 
-    // id column is unique in database so we're gonna have just one item per id 
+    // id column is unique in database so we're gonna have just one item per id
     // inside databaseResult List and that's because index is always 0
     AccountModel _account = AccountModel.fromDBMap(databaseResult[0]);
 
     return _account;
   }
-  
+
   Future<int> updateAccount(AccountModel account) async {
     /*
      * updateAccount method will update account object inside database
@@ -84,7 +84,8 @@ class DAO {
      */
 
     final db = await databaseProvider.database;
-    var result = await db.update("accounts", account.toMap(), where: "id = ?", whereArgs: [account.id]);
+    var result = await db.update("accounts", account.toMap(),
+        where: "id = ?", whereArgs: [account.id]);
 
     return result;
   }
@@ -115,7 +116,8 @@ class DAO {
 
     int allAccountsAmount = 0;
 
-    List<Map<String, dynamic>> result = await db.rawQuery("SELECT initalAmount FROM accounts");
+    List<Map<String, dynamic>> result =
+        await db.rawQuery("SELECT initalAmount FROM accounts");
 
     result.forEach((obj) => allAccountsAmount += obj['initalAmount']);
 
