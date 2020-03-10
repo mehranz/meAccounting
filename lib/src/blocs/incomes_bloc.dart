@@ -40,6 +40,15 @@ class IncomesBloc extends Object with IncomesValidator {
   Stream<String> get descriptions => _descriptionsController.stream;
   Function(String) get addDescriptions => _descriptionsController.sink.add;
 
+   getAllIncomes() async {
+     /*
+      * method to get all incomes and add them to incomes controller sink
+      */
+
+    List<IncomeModel> _incomes = await _repo.getAllIncomes();
+    _incomesController.sink.add(_incomes);
+  }
+
   dispose() {
     /*
      * method to close open streams
