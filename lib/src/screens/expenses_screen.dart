@@ -126,7 +126,7 @@ class ExpensesScreen extends StatelessWidget {
                         SizedBox(width: 20),
                       ], mainAxisAlignment: MainAxisAlignment.end)),
                   onDismissed: (DismissDirection direction) {
-                    // delete item
+                    bloc.deleteExpense(_exp);
                   },
                 );
               },
