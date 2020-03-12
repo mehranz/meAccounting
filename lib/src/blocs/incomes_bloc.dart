@@ -9,12 +9,13 @@ class IncomesBloc extends Object with IncomesValidator {
    * Class to provide business logic in order to handle states releated to Incomes
    * 
    */
-    
-    // create an instance of repo in order to deal with database
-    final Repo _repo = Repo();
+
+  // create an instance of repo in order to deal with database
+  final Repo _repo = Repo();
 
   // create stream for each state wanted to be controlled
-  final StreamController _incomesController = StreamController<List<IncomeModel>>();
+  final StreamController _incomesController =
+      StreamController<List<IncomeModel>>();
   final StreamController _titleController = StreamController<String>();
   final StreamController _amountController = StreamController<int>();
   final StreamController _accountIdController = StreamController<int>();
@@ -43,8 +44,8 @@ class IncomesBloc extends Object with IncomesValidator {
   Stream<String> get descriptions => _descriptionsController.stream;
   Function(String) get addDescriptions => _descriptionsController.sink.add;
 
-   getAllIncomes() async {
-     /*
+  getAllIncomes() async {
+    /*
       * method to get all incomes and add them to incomes controller sink
       */
 
@@ -62,12 +63,10 @@ class IncomesBloc extends Object with IncomesValidator {
     _repo.createIncome(income);
 
     // Sum the account's amount which received income, by income's amount
-    await _repo.getAccountByID(income.account_id).then(
-      (account) {
-        account.initalAmount += income.amount;
-        _repo.updateAccount(account);
-      }
-    );
+    await _repo.getAccountByID(income.account_id).then((account) {
+      account.initalAmount += income.amount;
+      _repo.updateAccount(account);
+    });
 
     getAllIncomes();
   }
@@ -79,9 +78,9 @@ class IncomesBloc extends Object with IncomesValidator {
      * 
      * @params IncomeModel
      */
-    
+
     _repo.deleteIncome(income);
-    
+
     getAllIncomes();
   }
 
