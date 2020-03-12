@@ -18,3 +18,17 @@ class AddIncomeScreen extends StatelessWidget {
   final TextEditingController _accountIdController = TextEditingController();
   final TextEditingController _descriptionsController = TextEditingController();
 
+  @override
+  Widget build(BuildContext context) {
+    /*
+     * method to build whole screen's elements
+     * 
+     * @params BuildContext
+     * @return Widget
+     */
+
+    return Scaffold(
+      appBar: appBar(context),
+      body: buildScaffoldBody(),
+    );
+  }
