@@ -93,7 +93,7 @@ class DatabaseProvider {
         "account_id INT, "
         "descriptions TEXT, "
         "created_at DATETIME, "
-        "FORIGEN KEY (account_id) REFERENCES accounts(id)"
+        "FOREIGN KEY (account_id) REFERENCES accounts(id)"
         ")");
 
     // enable forigen keys
