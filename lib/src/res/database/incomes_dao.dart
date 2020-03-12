@@ -44,4 +44,20 @@ class IncomesDao {
 
     return incomes;
   }
+
+  Future<int> deleteIncome(IncomeModel income) async {
+    /*
+     * method to delete income from database
+     * 
+     * @params IncomeModel
+     * @return Future<int>
+     */
+    
+    final db = await databaseProvider.database;
+
+    var result = db.delete("incomes", where:"id = ?", whereArgs : [income.id]);
+
+    return result;
+  }
+  
 }
