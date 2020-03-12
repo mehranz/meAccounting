@@ -59,5 +59,29 @@ class IncomesDao {
 
     return result;
   }
+
+  Future<int> getTotalIncomesFrom(String from) async {
+    /*
+     * method to get total incomes from an specific time until now 
+     * NOTE: parameter of this method is the second parameter of an sqlite function date()
+     * 
+     * @params String
+     * @return Future<int>
+     */
+    
+    final db = await databaseProvider.database;
+
+    List<Map<String, dynamic>> dbResult;
+
+    dbResult = await db.rawQuery(
+      "SELECT amount FROM incomes WHERE created_at >= date('now', ?)",
+      [from]
+    );
+
+    int totalIncomes = 0;
+    dbResult.forEach((amount) => totalIncomes += amount['amount']);
+
+    return totalIncomes;
+  }
   
 }
