@@ -52,6 +52,22 @@ class ExpensesDAO {
     return expenses;
   }
 
+  Future<int> deleteExpense(ExpenseModel expense) async {
+    /*
+     * method to delete expense from database
+     * 
+     * @params ExpenseModel
+     * @return Future<int>
+     */
+
+    final db = await dbProvider.database;
+
+    var result =
+        db.delete("expenses", where: "id = ?", whereArgs: [expense.id]);
+
+    return result;
+  }
+
   Future<int> getTotalExpensesFrom(String from) async {
     /*
        * method to get total expenses from an specific day until now
