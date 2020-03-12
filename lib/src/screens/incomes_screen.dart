@@ -23,7 +23,7 @@ class IncomesScreen extends StatelessWidget {
     // visual scaffold with body includes all incomes listview
     return Scaffold(
       appBar: appBar(),
-      floatingActionButton: addNewIncomeFloatingButton(),
+      floatingActionButton: addNewIncomeFloatingButton(context),
       body: incomesListView(),
     );
   }
@@ -41,15 +41,20 @@ class IncomesScreen extends StatelessWidget {
     );
   }
   
-  FloatingActionButton addNewIncomeFloatingButton() {
+  FloatingActionButton addNewIncomeFloatingButton(BuildContext context) {
     /*
      * helper method to create add income floating action button
      * 
      * @return FloatingActionButton
      */
     return FloatingActionButton(
-      // TODO: navigate to new income screen
-      onPressed: () => print("pressed"),
+      onPressed: () {
+        /**
+         * method to navigate to new incomes screen when floating action button pressed
+         */
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AddIncomeScreen()));
+      },
       child: Icon(Icons.add),
     );
   }
