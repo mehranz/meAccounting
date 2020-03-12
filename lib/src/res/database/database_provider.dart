@@ -38,7 +38,7 @@ class DatabaseProvider {
 
     var db = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: initDB,
       onUpgrade: upgradeDB,
     );
