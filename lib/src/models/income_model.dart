@@ -9,7 +9,7 @@ class IncomeModel {
   String title;
   int amount;
   int account_id;
-  int descriptions;
+  String descriptions;
   final String created_at;
 
   
