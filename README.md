@@ -14,6 +14,7 @@ if you are looking for apk files, [you can find them here.](https://github.com/m
 
 ### TODOs:
 - [x] add Incomes
+- [ ] remove expenses and income items when dismissed
 - [ ] add bank account dropdown selector to add expense screen
 - [ ] add edit expense screen
 - [ ] rename home_screen.dart and dao.dart files
