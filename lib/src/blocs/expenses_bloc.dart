@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:meAccounting/src/models/account_model.dart';
 import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/res/repo.dart';
 
@@ -52,6 +53,19 @@ class ExpensesBloc {
       _repo.updateAccount(account);
     });
 
+    getAllExpenses();
+  }
+
+  deleteExpense(ExpenseModel expense) {
+    /*
+     * method to delete expense from data base
+     * and get all new expenses inside expenses sink
+     * 
+     * @params ExpenseModel
+     */
+    
+    _repo.deleteExpense(expense);
+    
     getAllExpenses();
   }
 
