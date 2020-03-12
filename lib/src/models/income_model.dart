@@ -10,6 +10,7 @@ class IncomeModel {
   int amount;
   int account_id;
   String descriptions;
+  final String accountTitle;
   final String created_at;
 
   
@@ -27,6 +28,7 @@ class IncomeModel {
     this.account_id,
     this.descriptions,
     this.created_at,
+    this.accountTitle,
     }
   );
 
@@ -43,7 +45,8 @@ class IncomeModel {
     this.amount = dbResult['amount'],
     this.account_id = dbResult['account_id'],
     this.descriptions = dbResult['descriptions'],
-    this.created_at = dbResult['created_at'];
+    this.created_at = dbResult['created_at'],
+    this.accountTitle = dbResult['accountTitle'];
     
   Map<String, dynamic> toMap() {
     /*
