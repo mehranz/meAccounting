@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:meAccounting/src/blocs/incomes_bloc.dart';
+import 'package:meAccounting/src/models/income_model.dart';
+import 'package:meAccounting/src/screens/add_incomes_screen.dart';
 
 class IncomesScreen extends StatelessWidget {
   /*
    * class to create incomes screen and hold all elements of screen
    */
+
+  // create an instance of incomes bloc in order to access to streams
+  final bloc = IncomesBloc();
 
   @override
   Widget build(BuildContext context) {
