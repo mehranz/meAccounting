@@ -68,3 +68,21 @@ class AddIncomeScreen extends StatelessWidget {
     );
   }
 
+  Widget textFieldsTheme(Widget textField, {Color primaryColor}) {
+    /*
+     * method to create text fields theme in order to change color 
+     * when there was an error.
+     * 
+     * @params Widget, Color
+     * @return Widget
+     */
+
+    return Theme(
+      child: textField,
+      data: ThemeData(
+          primaryColor: primaryColor,
+          accentColor: Colors.white,
+          hintColor: Colors.white54,
+          textSelectionColor: Colors.white),
+    );
+  }
