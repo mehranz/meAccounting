@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meAccounting/src/blocs/accounts_bloc.dart';
 import 'package:meAccounting/src/blocs/expenses_bloc.dart';
+import 'package:meAccounting/src/blocs/incomes_bloc.dart';
 import 'package:meAccounting/src/screens/accounts_screen.dart';
 import 'package:meAccounting/src/screens/expenses_screen.dart';
 import 'package:meAccounting/src/screens/incomes_screen.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   // TODO: probably it's better to make a bloc just for this screen
   final expenseBloc = ExpensesBloc();
   final accountsBloc = AccountsBloc();
+  final incomesBloc = IncomesBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class HomeScreen extends StatelessWidget {
 
     expenseBloc.getTotalExpensesOfToday();
     accountsBloc.getTotalBankAmount();
+    incomesBloc.getIncomesOfToday();
 
     // TODO: Create Some Helper Methods to make code clean
     return Scaffold(
@@ -107,7 +110,14 @@ class HomeScreen extends StatelessWidget {
                     "Today Expenses", snapshot.data.toString() + " T");
               },
             ),
-            createCard("Today Incomes (Mock)", "950000T"),
+
+            StreamBuilder(
+              stream: incomesBloc.incomesOfToday,
+              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                return createCard("Today Incomes", snapshot.data.toString() + " T");
+              }
+            ),
+            
             StreamBuilder(
                 stream: accountsBloc.totalBankAmount,
 
