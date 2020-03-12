@@ -85,6 +85,15 @@ class IncomesBloc extends Object with IncomesValidator {
     getAllIncomes();
   }
 
+  getIncomesOfToday() async {
+    /*
+     * method to get total incomes of today and add the value 
+     * to total incomes of day stream 
+     */
+
+    var _totalIncomesOfToday = await _repo.getTotalIncomesFrom('start of day');
+    _todayTotalIncomesController.sink.add(_totalIncomesOfToday);
+  }
 
   dispose() {
     /*
