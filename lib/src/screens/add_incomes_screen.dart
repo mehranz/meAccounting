@@ -103,3 +103,226 @@ class AddIncomeScreen extends StatelessWidget {
           descriptionsField(),
         ]));
   }
+
+  Widget titleField() {
+    /*
+     * method to create title field and get user's input
+     * and push it to stream.
+     * 
+     * @return Widget
+     */
+
+    return StreamBuilder(
+      stream: bloc.title,
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        return Column(children: [
+          textFieldsTheme(
+              Card(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  color: Color(0XFF406B96),
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    controller: _titleController,
+                    onChanged: (value) => bloc.addTitle(value),
+                    decoration: InputDecoration(
+                      labelText: "Title",
+                      hintText: "Title",
+
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      // errorText: snapshot.hasError ? snapshot.error : null,
+                    ),
+                  )),
+                  // change primary color to red if there was an error
+              primaryColor: snapshot.hasError ? Colors.red : Colors.white),
+
+          // Container for error text to avoid show errors inside card
+          Container(
+              // height: 10,
+              alignment: Alignment.bottomLeft,
+              // padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(bottom: 10, top: 2, left: 20),
+              child: snapshot.hasError
+                  ? Text(
+                      snapshot.error,
+                      style: TextStyle(color: Colors.red),
+                      textAlign: TextAlign.right,
+                    )
+                  : SizedBox())
+        ]);
+      },
+    );
+  }
+
+  Widget amountField() {
+    /*
+     * method to create amount field and get user's input
+     * and push it to stream.
+     * 
+     * @return Widget
+     */
+
+    return StreamBuilder(
+      stream: bloc.amount,
+      builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+        return Column(children: [
+          textFieldsTheme(
+              Card(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  color: Color(0XFF406B96),
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    controller: _amountController,
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter.digitsOnly
+                    ],
+                    onChanged: (value) => bloc.addAmount(int.parse(value)),
+                    decoration: InputDecoration(
+                      labelText: "Amount",
+                      hintText: "Amount",
+
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      // errorText: snapshot.hasError ? snapshot.error : null,
+                    ),
+                  )),
+                  // change primary color to red if there was an error
+              primaryColor: snapshot.hasError ? Colors.red : Colors.white),
+
+          // Container for error text to avoid show errors inside card
+          Container(
+              // height: 10,
+              alignment: Alignment.bottomLeft,
+              // padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(bottom: 10, top: 2, left: 20),
+              child: snapshot.hasError
+                  ? Text(
+                      snapshot.error,
+                      style: TextStyle(color: Colors.red),
+                      textAlign: TextAlign.right,
+                    )
+                  : SizedBox())
+        ]);
+      },
+    );
+  }
+
+  Widget accountIdField() {
+    /*
+     * method to create accountId text field and get user's input
+     * and push it to stream
+     * 
+     * @return Widget
+     */
+
+    return StreamBuilder(
+        stream: bloc.accountId,
+        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          return Column(children: [
+            textFieldsTheme(
+                Card(
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    color: Color(0XFF406B96),
+                    child: TextField(
+                      style: TextStyle(color: Colors.white),
+                      controller: _accountIdController,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      onChanged: (value) => bloc.addAccountId(int.parse(value)),
+                      decoration: InputDecoration(
+                        labelText: "Account ID",
+                        hintText: "Title",
+
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        // errorText: snapshot.hasError ? snapshot.error : null,
+                      ),
+                    )),
+                  // change primary color to red if there was an error
+                primaryColor: snapshot.hasError ? Colors.red : Colors.white),
+
+            // Container for error text to avoid show errors inside card
+            Container(
+                // height: 10,
+                alignment: Alignment.bottomLeft,
+                // padding: EdgeInsets.all(10),
+                margin: EdgeInsets.only(bottom: 10, top: 2, left: 20),
+                child: snapshot.hasError
+                    ? Text(
+                        snapshot.error,
+                        style: TextStyle(color: Colors.red),
+                        textAlign: TextAlign.right,
+                      )
+                    : SizedBox())
+          ]);
+        });
+  }
+
+  Widget descriptionsField() {
+    /*
+     * method to create descriptions field and get user's input 
+     * and push it to stream.
+     * 
+     * @return Widget
+     */
+
+    return StreamBuilder(
+      stream: bloc.descriptions,
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        return Column(children: [
+          textFieldsTheme(
+              Card(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  color: Color(0XFF406B96),
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    controller: _descriptionsController,
+                    onChanged: (value) => bloc.addDescriptions(value),
+                    decoration: InputDecoration(
+                      labelText: "Descriptions",
+                      hintText: "Descriptions",
+
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      // errorText: snapshot.hasError ? snapshot.error : null,
+                    ),
+                  )),
+
+                  // change primary color to red if there was an error
+              primaryColor: snapshot.hasError ? Colors.red : Colors.white),
+
+          // Container for error text to avoid show errors inside card
+          Container(
+              // height: 10,
+              alignment: Alignment.bottomLeft,
+              // padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(bottom: 10, top: 2, left: 20),
+              child: snapshot.hasError
+                  ? Text(
+                      snapshot.error,
+                      style: TextStyle(color: Colors.red),
+                      textAlign: TextAlign.right,
+                    )
+                  : SizedBox())
+        ]);
+      },
+    );
+  }
+}
