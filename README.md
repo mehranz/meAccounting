@@ -21,7 +21,7 @@ if you are looking for apk files, [you can find them here.](https://github.com/m
 - [ ] allow to submit just when all streams have data in add expense and add account screen and edit screens
 - [ ] make accounts and expenses screen to be updated whenever there's a new object
 - [ ] make UI code cleaner
-- [ ] show real incomes in summary screen instead of mock data
+- [x] show real incomes in summary screen instead of mock data
 - [ ] Create Some Helper Methods to make code cleaner
 - [ ] Split Numbers by 3 Characters
 - [ ] Write Unit Tests
