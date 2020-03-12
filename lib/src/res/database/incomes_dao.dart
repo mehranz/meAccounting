@@ -37,7 +37,7 @@ class IncomesDao {
     final db = await databaseProvider.database;
 
     List<Map<String, dynamic>> result;
-    result = await db.query("incomes");
+    result = await db.rawQuery("SELECT DISTINCT incomes.*, accounts.title AS accountTitle FROM incomes LEFT JOIN accounts ON incomes.account_id = accounts.id");
 
     List<IncomeModel> incomes =
         result.map((income) => IncomeModel.fromDbMap(income)).toList();
