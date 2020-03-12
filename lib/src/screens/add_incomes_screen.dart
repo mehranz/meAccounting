@@ -86,3 +86,20 @@ class AddIncomeScreen extends StatelessWidget {
           textSelectionColor: Colors.white),
     );
   }
+
+  Widget buildScaffoldBody() {
+    /*
+     * method to build scaffold body and get all elements of screen together
+     * 
+     * @return Widget
+     */
+
+    return Container(
+        margin: EdgeInsets.all(20),
+        child: Column(children: <Widget>[
+          titleField(),
+          amountField(),
+          accountIdField(),
+          descriptionsField(),
+        ]));
+  }
