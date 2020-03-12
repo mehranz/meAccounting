@@ -13,7 +13,7 @@ There are some screenshot from App's UI above:
 if you are looking for apk files, [you can find them here.](https://github.com/meh666ran/meAccounting/releases)
 
 ### TODOs:
-- [ ] add Incomes
+- [x] add Incomes
 - [ ] add bank account dropdown selector to add expense screen
 - [ ] add edit expense screen
 - [ ] rename home_screen.dart and dao.dart files
