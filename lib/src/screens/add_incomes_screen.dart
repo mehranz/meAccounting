@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meAccounting/src/blocs/incomes_bloc.dart';
 import 'package:meAccounting/src/models/income_model.dart';
+import 'package:meAccounting/src/widgets/bank_account_dropdown.dart';
 
 class AddIncomeScreen extends StatelessWidget {
   /*
@@ -99,8 +100,8 @@ class AddIncomeScreen extends StatelessWidget {
         child: Column(children: <Widget>[
           titleField(),
           amountField(),
-          accountIdField(),
           descriptionsField(),
+          accountIdField(),
         ]));
   }
 
@@ -216,59 +217,13 @@ class AddIncomeScreen extends StatelessWidget {
   }
 
   Widget accountIdField() {
-    /*
-     * method to create accountId text field and get user's input
-     * and push it to stream
-     * 
-     * @return Widget
-     */
-
-    return StreamBuilder(
-        stream: bloc.accountId,
-        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-          return Column(children: [
-            textFieldsTheme(
-                Card(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: Color(0XFF406B96),
-                    child: TextField(
-                      style: TextStyle(color: Colors.white),
-                      controller: _accountIdController,
-                      inputFormatters: <TextInputFormatter>[
-                        WhitelistingTextInputFormatter.digitsOnly
-                      ],
-                      onChanged: (value) => bloc.addAccountId(int.parse(value)),
-                      decoration: InputDecoration(
-                        labelText: "Account ID",
-                        hintText: "Title",
-
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        // errorText: snapshot.hasError ? snapshot.error : null,
-                      ),
-                    )),
-                  // change primary color to red if there was an error
-                primaryColor: snapshot.hasError ? Colors.red : Colors.white),
-
-            // Container for error text to avoid show errors inside card
-            Container(
-                // height: 10,
-                alignment: Alignment.bottomLeft,
-                // padding: EdgeInsets.all(10),
-                margin: EdgeInsets.only(bottom: 10, top: 2, left: 20),
-                child: snapshot.hasError
-                    ? Text(
-                        snapshot.error,
-                        style: TextStyle(color: Colors.red),
-                        textAlign: TextAlign.right,
-                      )
-                    : SizedBox())
-          ]);
-        });
+    return Card(
+      margin: EdgeInsets.only(left:10, right: 10),
+      elevation: 10,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      color: Color(0XFF406B96),
+      child: BankAccountDropdown((value) => _accountIdController..text = value),
+    );
   }
 
   Widget descriptionsField() {
