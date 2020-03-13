@@ -28,6 +28,8 @@ class ExpensesBloc {
   Stream<List<ExpenseModel>> get expenses => _expensesController.stream;
   Stream<int> get totalExpenseOfDay => _todayTotalExpensesController.stream;
 
+  Function(int) get addAccountId => _accountIdController.sink.add;
+
   getAllExpenses() async {
     /*
      * getAllExpenses method to get all expenses from database and
