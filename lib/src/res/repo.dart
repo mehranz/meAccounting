@@ -21,7 +21,7 @@ class Repo {
 
   Future createAccount(AccountModel account) => dao.createAccount(account);
 
-  Future getAllAccounts() => dao.getAllAccounts();
+  Future<List<AccountModel>> getAllAccounts() => dao.getAllAccounts();
 
   Future deleteAccount(int id) => dao.deleteAccount(id);
 
