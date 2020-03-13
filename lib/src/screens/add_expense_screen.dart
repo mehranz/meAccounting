@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meAccounting/src/blocs/expenses_bloc.dart';
 import 'package:meAccounting/src/models/expense_model.dart';
+import 'package:meAccounting/src/widgets/bank_account_dropdown.dart';
 
 class AddNewExpensesScreen extends StatelessWidget {
   /*
@@ -37,7 +38,7 @@ class AddNewExpensesScreen extends StatelessWidget {
               textFieldsTheme(titleField()),
               textFieldsTheme(amountField()),
               textFieldsTheme(descriptionsField()),
-              textFieldsTheme(accountField())
+              accountsFieldDropdown(),
             ],
           ),
         ));
@@ -181,35 +182,19 @@ class AddNewExpensesScreen extends StatelessWidget {
         ));
   }
 
-  Widget accountField() {
+  Widget accountsFieldDropdown() {
     /*
-     * method to create account_id text field
-     * NOTE : this should be changed to a custom dropdown widget soon
+     * helper method to create accounts field dropdown widget
      * 
      * @return Widget
      */
+
     return Card(
       margin: EdgeInsets.all(10),
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Color(0XFF406B96),
-      child: TextField(
-        controller: _bankAccountFieldController,
-        keyboardType: TextInputType.number,
-
-        // limit text field to only accept digits
-        inputFormatters: <TextInputFormatter>[
-          WhitelistingTextInputFormatter.digitsOnly
-        ],
-        style: TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          labelText: "Account_id",
-          hintText: "Enter Your Account Id here (just for now)",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-        ),
-      ),
+      child: BankAccountDropdown((value) => _bankAccountFieldController..text = value),
     );
   }
 }
