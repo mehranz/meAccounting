@@ -13,10 +13,15 @@ class BankAccountDropdown extends StatefulWidget {
   // dropdown menu item changes
   final Function(String) _onchangedCallBack;
 
-  BankAccountDropdown(this._onchangedCallBack);
+  // get current value of dropdown in in order to
+  //show current account in edit screens
+  final String currentValue;
   
+  BankAccountDropdown(this._onchangedCallBack, {this.currentValue});
+
   @override
-  _BankAccountWidgetState createState() => _BankAccountWidgetState(_onchangedCallBack);
+  _BankAccountWidgetState createState() =>
+      _BankAccountWidgetState(_onchangedCallBack, currentValue);
 }
 
 class _BankAccountWidgetState extends State<BankAccountDropdown> {
@@ -36,7 +41,11 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
   // get onChanged Callback function in order to run
   // whenever dropdown item changed
   final Function(String) onChangedCallBack;
-  _BankAccountWidgetState(this.onChangedCallBack);
+
+  // get current value of dropdown in in order to
+  //show current account in edit screens
+  final String _currentValue;
+  _BankAccountWidgetState(this.onChangedCallBack, this._currentValue);
 
   @override
   void initState() {
@@ -45,6 +54,8 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
      */
 
     super.initState();
+
+    _currentDropdownMenuItem = _currentValue;
 
     // load all accounts from database
     _loadAccounts();
