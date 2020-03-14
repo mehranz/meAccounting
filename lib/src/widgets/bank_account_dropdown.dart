@@ -16,7 +16,7 @@ class BankAccountDropdown extends StatefulWidget {
   // get current value of dropdown in in order to
   //show current account in edit screens
   final String currentValue;
-  
+
   BankAccountDropdown(this._onchangedCallBack, {this.currentValue});
 
   @override
@@ -54,7 +54,7 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
      */
 
     super.initState();
-
+    
     _currentDropdownMenuItem = _currentValue;
 
     // load all accounts from database
@@ -71,11 +71,13 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
         data: Theme.of(context).copyWith(
           canvasColor: Theme.of(context).primaryColor,
         ),
-
         child: Container(
             margin: EdgeInsets.all(8),
             child: DropdownButton<String>(
-              hint: Text("Select Your Account", style: TextStyle(color: Colors.white54),),
+              hint: Text(
+                "Select Your Account",
+                style: TextStyle(color: Colors.white54),
+              ),
               onChanged: onChanged,
               value: _currentDropdownMenuItem,
               style: TextStyle(color: Colors.white),
@@ -114,7 +116,7 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
       // assign current dropdown menu item to value selected
       _currentDropdownMenuItem = currentValue;
     });
-    
+
     onChangedCallBack(currentValue);
   }
 }
