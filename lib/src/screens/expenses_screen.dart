@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meAccounting/src/blocs/expenses_bloc.dart';
 import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/screens/add_expense_screen.dart';
+import 'package:meAccounting/src/screens/edit_expense_screen.dart';
 
 class ExpensesScreen extends StatelessWidget {
   final bloc = ExpensesBloc();
@@ -71,6 +72,13 @@ class ExpensesScreen extends StatelessWidget {
                       child: Card(
                     elevation: 10,
                     child: ListTile(
+                      onTap: () {
+                        // navigate to edit expense screen with current expense
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return EditExpenseScreen(_exp);
+                        }));
+                      },
                       title: Text(_exp.title,
                           style: TextStyle(color: Colors.white)),
                       subtitle: Row(children: [
