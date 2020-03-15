@@ -71,6 +71,18 @@ class IncomesBloc extends Object with IncomesValidator {
     getAllIncomes();
   }
 
+  updateIncome(IncomeModel income) {
+    /*
+     * helper method to update given income inside database
+     * 
+     * @params IncomeModel
+     */
+    
+    _repo.updateIncome(income);
+    
+    getAllIncomes();
+  }
+
   deleteIncome(IncomeModel income) {
     /*
      * method to delete income from data base 
