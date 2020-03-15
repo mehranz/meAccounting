@@ -45,6 +45,22 @@ class IncomesDao {
     return incomes;
   }
 
+  Future<int> updateIncome(IncomeModel income) async {
+    /*
+     * method to update an income inside database
+     * 
+     * @params IncomeModel
+     * @return Future<int>
+     */
+    
+    final db = await databaseProvider.database;
+
+    var result = db.update("incomes", income.toMap(),
+        where: "id = ?", whereArgs: [income.id]);
+
+    return result;
+  }
+
   Future<int> deleteIncome(IncomeModel income) async {
     /*
      * method to delete income from database
