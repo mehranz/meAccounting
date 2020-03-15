@@ -37,7 +37,8 @@ class IncomesDao {
     final db = await databaseProvider.database;
 
     List<Map<String, dynamic>> result;
-    result = await db.rawQuery("SELECT DISTINCT incomes.*, accounts.title AS accountTitle FROM incomes LEFT JOIN accounts ON incomes.account_id = accounts.id");
+    result = await db.rawQuery(
+        "SELECT DISTINCT incomes.*, accounts.title AS accountTitle FROM incomes LEFT JOIN accounts ON incomes.account_id = accounts.id");
 
     List<IncomeModel> incomes =
         result.map((income) => IncomeModel.fromDbMap(income)).toList();
@@ -68,10 +69,10 @@ class IncomesDao {
      * @params IncomeModel
      * @return Future<int>
      */
-    
+
     final db = await databaseProvider.database;
 
-    var result = db.delete("incomes", where:"id = ?", whereArgs : [income.id]);
+    var result = db.delete("incomes", where: "id = ?", whereArgs: [income.id]);
 
     return result;
   }
@@ -84,20 +85,18 @@ class IncomesDao {
      * @params String
      * @return Future<int>
      */
-    
+
     final db = await databaseProvider.database;
 
     List<Map<String, dynamic>> dbResult;
 
     dbResult = await db.rawQuery(
-      "SELECT amount FROM incomes WHERE created_at >= date('now', ?)",
-      [from]
-    );
+        "SELECT amount FROM incomes WHERE created_at >= date('now', ?)",
+        [from]);
 
     int totalIncomes = 0;
     dbResult.forEach((amount) => totalIncomes += amount['amount']);
 
     return totalIncomes;
   }
-  
 }
