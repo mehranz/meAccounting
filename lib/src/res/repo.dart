@@ -45,6 +45,7 @@ class Repo {
   Future createIncome(IncomeModel income) => incomesDao.createIncome(income);
   Future getAllIncomes() => incomesDao.getAllIncomes();
   Future deleteIncome(IncomeModel income) => incomesDao.deleteIncome(income);
+  Future updateIncome(IncomeModel income) => incomesDao.updateIncome(income);
   Future getTotalIncomesFrom(String from) => incomesDao.getTotalIncomesFrom(from);
   
 }
