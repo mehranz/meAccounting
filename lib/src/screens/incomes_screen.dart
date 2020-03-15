@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meAccounting/src/blocs/incomes_bloc.dart';
 import 'package:meAccounting/src/models/income_model.dart';
 import 'package:meAccounting/src/screens/add_incomes_screen.dart';
+import 'package:meAccounting/src/screens/edit_income_screen.dart';
 
 class IncomesScreen extends StatelessWidget {
   /*
@@ -89,6 +90,13 @@ class IncomesScreen extends StatelessWidget {
                       child: Card(
                     elevation: 10,
                     child: ListTile(
+                      onTap: () {
+                        // navigate to edit income screen with tapped income item
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return EditIncomeScreen(_income);
+                        }));
+                      },
                       title: Text(_income.title,
                           style: TextStyle(color: Colors.white)),
                       subtitle: Row(children: [
