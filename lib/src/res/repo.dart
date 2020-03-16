@@ -39,6 +39,8 @@ class Repo {
 
   Future getTotalExpensesFrom(String from) => expensesDao.getTotalExpensesFrom(from);
 
+  Future updateExpense(ExpenseModel expense) => expensesDao.updateExpense(expense); 
+
   Future deleteExpense(ExpenseModel expense) => expensesDao.deleteExpense(expense); 
 
   // incomes section
