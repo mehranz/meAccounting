@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:meAccounting/src/models/account_model.dart';
 import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/res/repo.dart';
 
@@ -54,6 +53,19 @@ class ExpensesBloc {
       account.initalAmount -= expense.amount;
       _repo.updateAccount(account);
     });
+
+    getAllExpenses();
+  }
+
+  updateExpense(ExpenseModel expense) {
+    /*
+     * method to update an specific expense inside database
+     * and update expenses stream.
+     * 
+     * @params ExpenseModel 
+     */
+    
+    _repo.updateExpense(expense);
 
     getAllExpenses();
   }
