@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meAccounting/src/blocs/expenses_bloc.dart';
 import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/widgets/bank_account_dropdown.dart';
 
@@ -7,6 +8,8 @@ class EditExpenseScreen extends StatelessWidget {
 
   // get expense model wanted to be edited from constructor
   final ExpenseModel _expense;
+
+  final ExpensesBloc bloc = ExpensesBloc();
 
   // create a text editing controller for each text fields in screen
   final TextEditingController _titleFieldController = TextEditingController();
@@ -29,12 +32,12 @@ class EditExpenseScreen extends StatelessWidget {
      */
 
     return Scaffold(
-      appBar: appBar(),
+      appBar: appBar(context),
       body: buildBody(),
     );
   }
 
-  AppBar appBar() {
+  AppBar appBar(BuildContext context) {
     /*
      * helper method to build app bar
      * 
@@ -45,7 +48,7 @@ class EditExpenseScreen extends StatelessWidget {
       title: Text("Edit Expense " + _expense.title),
       centerTitle: true,
       actions: <Widget>[
-        _submitButton(),
+        _submitButton(context),
       ],
     );
   }
@@ -193,7 +196,7 @@ class EditExpenseScreen extends StatelessWidget {
     );
   }
 
-  Widget _submitButton() {
+  Widget _submitButton(BuildContext context) {
     /*
      * helper method to build submit button 
      * placed into scaffold actions
@@ -206,7 +209,18 @@ class EditExpenseScreen extends StatelessWidget {
         Icons.done,
         color: Colors.white,
       ),
-      onPressed: () {},
+
+      onPressed: () {
+        // update existing expense value with value of fields
+        // and submit them to database
+        _expense.title = _titleFieldController.text;
+        _expense.amount = int.parse(_amountFieldController.text);
+        _expense.descriptions = _descriptionsFieldController.text;
+        _expense.accountId = int.parse(_bankAccountFieldController.text);
+        bloc.updateExpense(_expense);
+
+        Navigator.of(context).pop();
+      },
     );
   }
 }
