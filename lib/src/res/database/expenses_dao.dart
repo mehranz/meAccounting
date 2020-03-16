@@ -52,6 +52,22 @@ class ExpensesDAO {
     return expenses;
   }
 
+  Future<int> updateExpense(ExpenseModel expense) async {
+    /*
+     * method to update an expense inside database with given expense model
+     * 
+     * @params ExpenseModel
+     * @return Future<int>
+     */
+
+    final db = await dbProvider.database;
+
+    var result = db.update("expenses", expense.toMap(),
+        where: "id = ?", whereArgs: [expense.id]);
+        
+    return result;
+  }
+
   Future<int> deleteExpense(ExpenseModel expense) async {
     /*
      * method to delete expense from database
