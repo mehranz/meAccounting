@@ -24,7 +24,7 @@ if you are looking for apk files, [you can find them here.](https://github.com/m
 - [ ] make UI code cleaner
 - [x] show real incomes in summary screen instead of mock data
 - [ ] Create Some Helper Methods to make code cleaner
-- [ ] Split Numbers by 3 Characters
+- [x] Split Numbers by 3 Characters
 - [ ] Write Unit Tests
 - [ ] add up and down arrow to show summary blocks compared to yesterday 
 - [ ] add debts

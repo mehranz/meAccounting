@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:meAccounting/src/blocs/accounts_bloc.dart';
 import 'package:meAccounting/src/blocs/expenses_bloc.dart';
 import 'package:meAccounting/src/blocs/incomes_bloc.dart';
@@ -75,7 +76,6 @@ class HomeScreen extends StatelessWidget {
               ),
               padding: EdgeInsets.all(50),
             ),
-
             FlatButton.icon(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -94,7 +94,6 @@ class HomeScreen extends StatelessWidget {
               ),
               padding: EdgeInsets.all(50),
             ),
-
           ],
         ),
       )),
@@ -107,24 +106,28 @@ class HomeScreen extends StatelessWidget {
               // TODO: check if snapshot has data and if it hasn't show a ProgressIndicator
               builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
                 return createCard(
-                    "Today Expenses", snapshot.data.toString() + " T");
+                    "Today Expenses",
+                    _formattedMoneyValue(snapshot.data.toDouble())
+                        .symbolOnRight);
               },
             ),
-
             StreamBuilder(
-              stream: incomesBloc.incomesOfToday,
-              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                return createCard("Today Incomes", snapshot.data.toString() + " T");
-              }
-            ),
-            
+                stream: incomesBloc.incomesOfToday,
+                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  return createCard(
+                      "Today Incomes",
+                      _formattedMoneyValue(snapshot.data.toDouble())
+                          .symbolOnRight);
+                }),
             StreamBuilder(
                 stream: accountsBloc.totalBankAmount,
 
                 // TODO: check if snapshot has data and if it hasn't show a ProgressIndicator
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
                   return createCard(
-                      "Total Balance", snapshot.data.toString() + " T");
+                      "Total Balance",
+                      _formattedMoneyValue(snapshot.data.toDouble())
+                          .symbolOnRight);
                 }),
           ],
         ),
