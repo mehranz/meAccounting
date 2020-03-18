@@ -170,4 +170,21 @@ class HomeScreen extends StatelessWidget {
           )),
     );
   }
+
+  MoneyFormatterOutput _formattedMoneyValue(double amount) {
+    /*
+     * method to format money value with 0 fractionDigits, 
+     * and 'T' symbol (Stands for Toman: Iran's currency)
+     * 
+     * @params double
+     * @return MoneyFormatterOutput
+     */
+
+    final FlutterMoneyFormatter _formatter = FlutterMoneyFormatter(
+      amount: amount,
+      settings: MoneyFormatterSettings(fractionDigits: 0, symbol: 'T'),
+    );
+
+    return _formatter.output;
+  }
 }
