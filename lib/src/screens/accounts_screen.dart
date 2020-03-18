@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:meAccounting/src/blocs/accounts_bloc.dart';
 import 'package:meAccounting/src/models/account_model.dart';
 import 'package:meAccounting/src/screens/add_new_account_screen.dart';
@@ -56,6 +57,16 @@ class AccountsScreen extends StatelessWidget {
                      * build a Dissmissible ListTile for every account elements comes from Stream
                      */
                     AccountModel account = snapshot.data[index];
+
+                    // Money Formatter Object in order to format amount
+                    // to a more human readable style
+                    final FlutterMoneyFormatter moneyFormatter =
+                        FlutterMoneyFormatter(
+                      amount: account.initalAmount.toDouble(),
+                      settings: MoneyFormatterSettings(
+                          fractionDigits: 0, symbol: 'T'),
+                    );
+
                     return Dismissible(
                       key: Key(account.title),
                       child: Card(
@@ -70,19 +81,24 @@ class AccountsScreen extends StatelessWidget {
                                           EditAccountScreen(account)));
                             },
                             title: Text(
-                              account.title + " - id : " + account.id.toString(),
+                              account.title,
                               style: TextStyle(color: Colors.white),
                             ),
                             subtitle: Row(
                               children: <Widget>[
-                                Icon(Icons.credit_card, color: Colors.white, size: 16,),
-                                SizedBox(width: 5,),
+                                Icon(
+                                  Icons.credit_card,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
                                 Text(account.cardNumber.toString(),
                                     style: TextStyle(color: Colors.white))
                               ],
                             ),
-                            trailing: Text(
-                                account.initalAmount.toString() + " T",
+                            trailing: Text(moneyFormatter.output.symbolOnRight,
                                 style: TextStyle(color: Colors.white)),
                           )),
                       background: Container(
