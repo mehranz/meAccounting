@@ -33,6 +33,8 @@ dev_dependencies:
     
   flutter_launcher_icons: any
 
+  flutter_money_formatter: ^0.8.3
+
 flutter_icons:
   image_path: "icons/app_icon.png"
   android: true
