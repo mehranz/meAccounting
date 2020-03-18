@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:meAccounting/src/blocs/incomes_bloc.dart';
 import 'package:meAccounting/src/models/income_model.dart';
 import 'package:meAccounting/src/screens/add_incomes_screen.dart';
@@ -84,6 +85,17 @@ class IncomesScreen extends StatelessWidget {
                 final IncomeModel _income = snapshot.data[index];
                 final DateTime _created_at = DateTime.parse(_income.created_at);
 
+                // Money Formatter Object in order to format amount
+                // to a more human readable style
+                final FlutterMoneyFormatter _moneyFormatter =
+                    FlutterMoneyFormatter(
+                  amount: _income.amount.toDouble(),
+                  settings: MoneyFormatterSettings(
+                    symbol: 'T',
+                    fractionDigits: 0,
+                  ),
+                );
+
                 return Dismissible(
                   key: Key(_income.title),
                   child: Container(
@@ -131,7 +143,7 @@ class IncomesScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         )
                       ]),
-                      trailing: Text(_income.amount.toString() + " T",
+                      trailing: Text(_moneyFormatter.output.symbolOnRight,
                           style: TextStyle(color: Colors.white)),
                     ),
                     color: Color(0XFF406B96),
