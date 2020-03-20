@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meAccounting/src/screens/home_screen.dart';
+import 'package:meAccounting/src/screens/summary_screen.dart';
 
 class App extends StatelessWidget {
   /*
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
           primaryColor: Color(0XFF18222C),
           scaffoldBackgroundColor: Color(0XFF20303F)),
-      home: HomeScreen(),
+      home: SummaryScreen(),
     );
   }
 }

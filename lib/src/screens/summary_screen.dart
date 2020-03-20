@@ -7,7 +7,7 @@ import 'package:meAccounting/src/screens/accounts_screen.dart';
 import 'package:meAccounting/src/screens/expenses_screen.dart';
 import 'package:meAccounting/src/screens/incomes_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class SummaryScreen extends StatelessWidget {
   /*
    * Home Screen Widget to build HomeScreen of app!
    */
