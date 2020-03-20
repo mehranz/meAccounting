@@ -18,7 +18,7 @@ if you are looking for apk files, [you can find them here.](https://github.com/m
 - [x] add bank account dropdown selector to add expense screen
 - [x] add edit expense screen
 - [x] add edit income screen
-- [ ] rename home_screen.dart and dao.dart files
+- [x] rename home_screen.dart and dao.dart files
 - [ ] allow to submit just when all streams have data in add expense and add account screen and edit screens
 - [ ] make accounts and expenses screen to be updated whenever there's a new object
 - [ ] make UI code cleaner

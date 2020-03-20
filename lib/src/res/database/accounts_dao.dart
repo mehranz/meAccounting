@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:meAccounting/src/models/account_model.dart';
 import './database_provider.dart';
 
-class DAO {
+class AccountsDAO {
   /*
    * DAO class to provide Data Access Object
    * in order to intract with database 

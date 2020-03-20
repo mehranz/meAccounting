@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:meAccounting/src/models/expense_model.dart';
+import 'package:meAccounting/src/res/database/accounts_dao.dart';
 import 'package:meAccounting/src/res/database/expenses_dao.dart';
 import 'package:meAccounting/src/res/database/incomes_dao.dart';
 import '../models/income_model.dart';
 
-import './database/dao.dart';
 import '../models/account_model.dart';
 
 class Repo {
@@ -15,7 +15,7 @@ class Repo {
    * 
    */
 
-  final dao = DAO();
+  final dao = AccountsDAO();
   final expensesDao = ExpensesDAO();
   final incomesDao = IncomesDao();
 
