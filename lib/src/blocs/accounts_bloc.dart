@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:meAccounting/src/blocs/validators/account_validator.dart';
 import 'package:meAccounting/src/models/account_model.dart';
@@ -17,9 +18,6 @@ class AccountsBloc extends Object with AccountValidator {
   // create streams for every state wanted to be controlled
   final StreamController _accountsController =
       StreamController<List<AccountModel>>();
-  final StreamController _titleController = StreamController<String>();
-  final StreamController _initialAmountController = StreamController<int>();
-  final StreamController _cardNumberController = StreamController<int>();
 
   final _titleController = BehaviorSubject<String>();
   final _initialAmountController = BehaviorSubject<int>();
@@ -69,15 +67,20 @@ class AccountsBloc extends Object with AccountValidator {
     _accountsController.sink.add(_accounts);
   }
 
-  void addAccountToDB(AccountModel account) {
+  void addAccountToDB() {
     /*
-     * addAccountToDb helper method to add AccountModel to db
+     * addAccountToDb helper method to create an AccountModel and add it
      * directly from bloc instances and then update accounts stream
-     * 
-     * @param AccountModel
-     * @return
      */
-    _repo.createAccount(account);
+
+    // create an account model with streams value
+    final AccountModel _accToAddToDB = AccountModel(
+      title: _titleController.value,
+      initalAmount: _initialAmountController.value,
+      cardNumber: _cardNumberController.value,
+    );
+
+    _repo.createAccount(_accToAddToDB);
     getAllAccounts();
     getTotalBankAmount();
   }
