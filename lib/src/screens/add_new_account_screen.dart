@@ -222,23 +222,18 @@ class AddNewAccountScreen extends StatelessWidget {
      * @return Widget
      */
 
-    return IconButton(
-      icon: Icon(Icons.done),
-
-      // TODO: make submission just when all streams have data
-      onPressed: () {
-        // create a new AccountModel with data user inserted on textfields
-        // in order to add it to database
-        var account = AccountModel(
-          title: _titleController.text,
-          initalAmount: int.parse(_amountController.text),
-          cardNumber: int.parse(_cardNumberController.text),
-        );
-        bloc.addAccountToDB(account);
-
-        // get user back after changes submitted
-        Navigator.of(context).pop();
-      },
-    );
+    return StreamBuilder(
+        stream: bloc.submitValid,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return IconButton(
+            icon: Icon(Icons.done,
+                color: snapshot.hasData ? Colors.white : Colors.white60),
+            onPressed: snapshot.hasData ? () {
+              bloc.addAccountToDB();
+              Navigator.of(context).pop();
+            }
+            : null,
+          );
+        });
   }
 }
