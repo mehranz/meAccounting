@@ -47,6 +47,11 @@ class AccountsBloc extends Object with AccountValidator {
   Function(int) get addCardNumber => _cardNumberController.sink.add;
 
   Stream<int> get totalBankAmount => _totalBankAmountController.stream;
+
+  // submit stream to check if needed streams has value to submit
+  Stream<bool> get submitValid => Rx.combineLatest3(titleStream,
+      initialAmountStream, cardNumberStream, (title, email, password) => true);
+
   // ======== end getters section
 
   void getAllAccounts() async {
