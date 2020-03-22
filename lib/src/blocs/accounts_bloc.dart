@@ -21,6 +21,10 @@ class AccountsBloc extends Object with AccountValidator {
   final StreamController _initialAmountController = StreamController<int>();
   final StreamController _cardNumberController = StreamController<int>();
 
+  final _titleController = BehaviorSubject<String>();
+  final _initialAmountController = BehaviorSubject<int>();
+  final _cardNumberController = BehaviorSubject<int>();
+
   final StreamController _totalBankAmountController = StreamController<int>();
 
   AccountsBloc() {
