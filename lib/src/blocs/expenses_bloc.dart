@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:meAccounting/src/blocs/validators/expenses_validator.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/res/repo.dart';
 
-class ExpensesBloc {
+class ExpensesBloc extends Object with ExpensesValidator {
   /*
    * ExpensesBloc Class to provide business logic in order to handle states of app
    */
@@ -78,7 +80,7 @@ class ExpensesBloc {
      * 
      * @params ExpenseModel 
      */
-    
+
     _repo.updateExpense(expense);
 
     getAllExpenses();
@@ -91,9 +93,9 @@ class ExpensesBloc {
      * 
      * @params ExpenseModel
      */
-    
+
     _repo.deleteExpense(expense);
-    
+
     getAllExpenses();
   }
 
@@ -106,6 +108,25 @@ class ExpensesBloc {
     var _totalExpensesOfToday =
         await _repo.getTotalExpensesFrom('start of day');
     _todayTotalExpensesController.sink.add(_totalExpensesOfToday);
+  }
+
+  void submitToDB() {
+    /*
+     * helper method to create an expense and submit it
+     * to database. 
+     * 
+     * NOTE: this method should run when just all needed streams have value
+     */
+
+    final ExpenseModel _expenseToSubmit = ExpenseModel(
+      title: _titleController.value,
+      amount: _amountController.value,
+      accountId: _accountIdController.value,
+      descriptions: _descriptionsController.value,
+      createdAt: DateTime.now().toString(),
+    );
+
+    addNewExpenseToDB(_expenseToSubmit);
   }
 
   void dispose() {
