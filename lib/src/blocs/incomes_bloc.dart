@@ -1,4 +1,6 @@
 import 'dart:async';
+
+import 'package:rxdart/rxdart.dart';
 import 'package:meAccounting/src/models/income_model.dart';
 import 'package:meAccounting/src/res/repo.dart';
 
@@ -16,10 +18,11 @@ class IncomesBloc extends Object with IncomesValidator {
   // create stream for each state wanted to be controlled
   final StreamController _incomesController =
       StreamController<List<IncomeModel>>();
-  final StreamController _titleController = StreamController<String>();
-  final StreamController _amountController = StreamController<int>();
-  final StreamController _accountIdController = StreamController<int>();
-  final StreamController _descriptionsController = StreamController<String>();
+
+  final _titleController = BehaviorSubject<String>();
+  final _amountController = BehaviorSubject<int>();
+  final _accountIdController = BehaviorSubject<int>();
+  final _descriptionsController = BehaviorSubject<String>();
 
   final StreamController _todayTotalIncomesController = StreamController<int>();
 
