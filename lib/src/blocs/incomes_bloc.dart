@@ -47,6 +47,10 @@ class IncomesBloc extends Object with IncomesValidator {
   Stream<String> get descriptions => _descriptionsController.stream;
   Function(String) get addDescriptions => _descriptionsController.sink.add;
 
+  // Getter for Validate Submit Stream
+  Stream<bool> get validateSubmit => Rx.combineLatest3(
+      title, amount, accountId, (title, amount, accountId) => true);
+
   getAllIncomes() async {
     /*
       * method to get all incomes and add them to incomes controller sink
