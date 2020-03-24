@@ -84,9 +84,9 @@ class IncomesBloc extends Object with IncomesValidator {
      * 
      * @params IncomeModel
      */
-    
+
     _repo.updateIncome(income);
-    
+
     getAllIncomes();
   }
 
@@ -111,6 +111,22 @@ class IncomesBloc extends Object with IncomesValidator {
 
     var _totalIncomesOfToday = await _repo.getTotalIncomesFrom('start of day');
     _todayTotalIncomesController.sink.add(_totalIncomesOfToday);
+  }
+
+  submitToDB() {
+    /*
+     * method to create an income model and submit it to database
+     */
+
+    final IncomeModel _incomeToSubmit = IncomeModel(
+      title: _titleController.value,
+      amount: _amountController.value,
+      account_id: _accountIdController.value,
+      created_at: DateTime.now().toString(),
+      descriptions: _descriptionsController.value,
+    );
+
+    addNewIncome(_incomeToSubmit);
   }
 
   dispose() {
