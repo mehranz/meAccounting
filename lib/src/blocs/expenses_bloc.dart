@@ -25,8 +25,19 @@ class ExpensesBloc {
       StreamController<int>();
 
   Stream<List<ExpenseModel>> get expenses => _expensesController.stream;
+
   Stream<int> get totalExpenseOfDay => _todayTotalExpensesController.stream;
 
+  Stream<String> get titleStream => _titleController.stream.transform(validateTitle);
+  Function(String) get addTitle => _titleController.sink.add;
+
+  Stream<int> get amountStream => _amountController.stream.transform(validateAmount);
+  Function(int) get addAmount => _amountController.sink.add;
+
+  Stream<String> get descriptionsStream => _descriptionsController.stream;
+  Function(String) get addDescriptions => _descriptionsController.sink.add;
+
+  Stream<int> get accountIdStream => _accountIdController.stream;
   Function(int) get addAccountId => _accountIdController.sink.add;
 
   getAllExpenses() async {
