@@ -48,19 +48,8 @@ class AddIncomeScreen extends StatelessWidget {
       actions: <Widget>[
         IconButton(
             icon: Icon(Icons.done),
-            onPressed: () async {
-              /*
-               * method to get text fields value and make an income model 
-               * and submit it to database.
-               */
-              
-              await bloc.addNewIncome(IncomeModel(
-                title: _titleController.text,
-                amount: int.parse(_amountController.text),
-                account_id: int.parse(_accountIdController.text),
-                created_at: DateTime.now().toString(),
-                descriptions: _descriptionsController.text,
-              ));
+            onPressed: () {
+              bloc.submitToDB();
               
               // back to previous screen after new income submitted
               Navigator.of(context).pop();
