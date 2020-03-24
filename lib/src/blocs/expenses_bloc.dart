@@ -40,6 +40,9 @@ class ExpensesBloc {
   Stream<int> get accountIdStream => _accountIdController.stream;
   Function(int) get addAccountId => _accountIdController.sink.add;
 
+  Stream<bool> get validSubmit => Rx.combineLatest3(titleStream, amountStream, accountIdStream,
+      (title, amount, accountId) => true);
+
   getAllExpenses() async {
     /*
      * getAllExpenses method to get all expenses from database and
