@@ -16,10 +16,10 @@ class ExpensesBloc {
   final StreamController _expensesController =
       StreamController<List<ExpenseModel>>();
 
-  final StreamController _titleController = StreamController();
-  final StreamController _amountController = StreamController();
-  final StreamController _descriptionsController = StreamController();
-  final StreamController _accountIdController = StreamController();
+  final _titleController = BehaviorSubject<String>();
+  final _amountController = BehaviorSubject<int>();
+  final _descriptionsController = BehaviorSubject<String>();
+  final _accountIdController = BehaviorSubject<int>();
 
   final StreamController _todayTotalExpensesController =
       StreamController<int>();
