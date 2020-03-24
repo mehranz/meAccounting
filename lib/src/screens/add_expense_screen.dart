@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meAccounting/src/blocs/expenses_bloc.dart';
-import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/widgets/bank_account_dropdown.dart';
+import 'package:meAccounting/src/widgets/custom_text_field.dart';
 
 class AddNewExpensesScreen extends StatelessWidget {
   /*
@@ -67,20 +67,20 @@ class AddNewExpensesScreen extends StatelessWidget {
      * @return Widget
      */
 
-    return IconButton(
-      onPressed: () async {
-        await bloc.addNewExpenseToDB(ExpenseModel(
-          title: _titleFieldController.text,
-          amount: int.parse(_amountFieldController.text),
-          descriptions: _descriptionsFieldController.text,
-          accountId: int.parse(_bankAccountFieldController.text),
-          createdAt: DateTime.now().toString(),
-        ));
-
-        Navigator.of(context).pop();
+    return StreamBuilder(
+      stream: bloc.validSubmit,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        return IconButton(
+          onPressed: snapshot.hasData
+              ? () {
+                  bloc.submitToDB();
+                  Navigator.of(context).pop();
+                }
+              : null,
+          icon: Icon(Icons.done,
+              color: snapshot.hasData ? Colors.white : Colors.white60),
+        );
       },
-      icon: Icon(Icons.done),
-      color: Colors.white,
     );
   }
 
@@ -108,22 +108,14 @@ class AddNewExpensesScreen extends StatelessWidget {
      * @return Widget
      */
 
-    return Card(
-        margin: EdgeInsets.all(10),
-        elevation: 10,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: Color(0XFF406B96),
-        child: TextField(
-          controller: _titleFieldController,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            labelText: "Title",
-            hintText: "Enter Title Here",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-        ));
+    return StreamBuilder(
+        stream: bloc.titleStream,
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          return CustomTextField("Title", "Enter Title Here",
+              errorText: snapshot.hasError ? snapshot.error : null,
+              controller: _titleFieldController,
+              onChanged: (value) => bloc.addTitle(value));
+        });
   }
 
   Widget amountField() {
@@ -133,28 +125,22 @@ class AddNewExpensesScreen extends StatelessWidget {
      * @return Widget
      */
 
-    return Card(
-        margin: EdgeInsets.all(10),
-        elevation: 10,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: Color(0XFF406B96),
-        child: TextField(
+    return StreamBuilder(
+      stream: bloc.amountStream,
+      builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+        return CustomTextField(
+          "Amount",
+          "Enter Amount Here",
+          errorText: snapshot.hasError ? snapshot.error : null,
           controller: _amountFieldController,
           keyboardType: TextInputType.number,
-
-          // limit text field to only accept digits
           inputFormatters: <TextInputFormatter>[
             WhitelistingTextInputFormatter.digitsOnly
           ],
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            labelText: "Amount",
-            hintText: "Enter Amount Here",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-        ));
+          onChanged: (value) => bloc.addAmount(int.parse(value)),
+        );
+      },
+    );
   }
 
   Widget descriptionsField() {
@@ -164,22 +150,17 @@ class AddNewExpensesScreen extends StatelessWidget {
      * @return Widget
      */
 
-    return Card(
-        margin: EdgeInsets.all(10),
-        elevation: 10,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: Color(0XFF406B96),
-        child: TextField(
-          controller: _descriptionsFieldController,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            labelText: "Descriptions",
-            hintText: "Enter Descriptions Here",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-        ));
+    return StreamBuilder(
+        stream: bloc.descriptionsStream,
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          return CustomTextField(
+            "Descriptions",
+            "Enter Descriptions Here",
+            errorText: snapshot.hasError ? snapshot.error : null,
+            controller: _descriptionsFieldController,
+            onChanged: (value) => bloc.addDescriptions(value),
+          );
+        });
   }
 
   Widget accountsFieldDropdown() {
@@ -194,7 +175,9 @@ class AddNewExpensesScreen extends StatelessWidget {
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Color(0XFF406B96),
-      child: BankAccountDropdown((value) => _bankAccountFieldController..text = value),
+      child: BankAccountDropdown(
+        (value) => bloc.addAccountId(int.parse(value))
+      ),
     );
   }
 }
