@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meAccounting/src/blocs/accounts_bloc.dart';
-import 'package:meAccounting/src/models/account_model.dart';
+import 'package:meAccounting/src/widgets/custom_text_field.dart';
 
 class AddNewAccountScreen extends StatelessWidget {
   /**
@@ -61,48 +61,16 @@ class AddNewAccountScreen extends StatelessWidget {
      */
 
     return StreamBuilder(
-      stream: bloc.titleStream,
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        return Column(children: [
-          textFieldsTheme(
-              Card(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  color: Color(0XFF406B96),
-                  child: TextField(
-                    style: TextStyle(color: Colors.white),
-                    controller: _titleController,
-                    onChanged: (value) => bloc.addTitle(value),
-                    decoration: InputDecoration(
-                      labelText: "Title",
-                      hintText: "Title",
-
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      // errorText: snapshot.hasError ? snapshot.error : null,
-                    ),
-                  )),
-              primaryColor: snapshot.hasError ? Colors.red : Colors.white),
-
-          // Container for error text to avoid show errors inside card
-          Container(
-              // height: 10,
-              alignment: Alignment.bottomLeft,
-              // padding: EdgeInsets.all(10),
-              margin: EdgeInsets.only(bottom: 10, top: 2, left: 20),
-              child: snapshot.hasError
-                  ? Text(
-                      snapshot.error,
-                      style: TextStyle(color: Colors.red),
-                      textAlign: TextAlign.right,
-                    )
-                  : SizedBox())
-        ]);
-      },
-    );
+        stream: bloc.titleStream,
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          return CustomTextField(
+            "Title",
+            "Title",
+            errorText: snapshot.hasError ? snapshot.error : null,
+            controller: _titleController,
+            onChanged: (value) => bloc.addTitle(value),
+          );
+        });
   }
 
   Widget initialAmountField() {
@@ -115,47 +83,15 @@ class AddNewAccountScreen extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.initialAmountStream,
       builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-        return Column(children: [
-          textFieldsTheme(
-              Card(
-                  margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  color: Color(0XFF406B96),
-                  child: TextField(
-                    style: TextStyle(color: Colors.white),
-                    inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter
-                          .digitsOnly // make text field to only accept digits
-                    ],
-                    onChanged: (value) =>
-                        bloc.addInitialAmount(int.parse(value)),
-                    controller: _amountController,
-                    decoration: InputDecoration(
-                      labelText: "Initial Amount",
-                      hintText: "how much you have in that account right now?",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                  )),
-              primaryColor: snapshot.hasError ? Colors.red : Colors.white),
-          // Container for error text to avoid show errors inside card
-          Container(
-              // height: 10,
-              alignment: Alignment.bottomLeft,
-              // padding: EdgeInsets.all(10),
-              margin: EdgeInsets.only(top: 2, left: 20, bottom: 10),
-              child: snapshot.hasError
-                  ? Text(
-                      snapshot.error,
-                      style: TextStyle(color: Colors.red),
-                      textAlign: TextAlign.right,
-                    )
-                  : SizedBox()),
-        ]);
+        return CustomTextField(
+          "Amount",
+          "How Much Do You Have in This Account Right Now?",
+          errorText: snapshot.hasError ? snapshot.error : null,
+          keyboardType: TextInputType.number,
+          controller: _amountController,
+          inputFormatters: <TextInputFormatter> [WhitelistingTextInputFormatter.digitsOnly],
+          onChanged: (value) => bloc.addInitialAmount( int.parse(value) ),
+        );
       },
     );
   }
@@ -170,48 +106,16 @@ class AddNewAccountScreen extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.cardNumberStream,
       builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-        return Column(children: [
-          textFieldsTheme(
-              Card(
-                  margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  color: Color(0XFF406B96),
-                  child: TextField(
-                    style: TextStyle(color: Colors.white),
-                    onChanged: (value) => bloc.addCardNumber(int.parse(value)),
-                    controller: _cardNumberController,
-                    inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter
-                          .digitsOnly // make text field to only accept digits
-                    ],
-                    decoration: InputDecoration(
-                      labelText: "Card Number",
-                      hintText: "Enter Your Card number",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                  )),
-              primaryColor: snapshot.hasError ? Colors.red : Colors.white),
-
-          // Container for error text to avoid show errors inside card
-          Container(
-              // height: 10,
-              alignment: Alignment.bottomLeft,
-              // padding: EdgeInsets.all(10),
-              margin: EdgeInsets.only(bottom: 10, top: 2, left: 20),
-              child: snapshot.hasError
-                  ? Text(
-                      snapshot.error,
-                      style: TextStyle(color: Colors.red),
-                      textAlign: TextAlign.right,
-                    )
-                  : SizedBox()),
-        ]);
-      },
+        return CustomTextField(
+          "Card Number",
+          "Enter Your Card Number Here",
+          errorText: snapshot.hasError ? snapshot.error : null,
+          keyboardType: TextInputType.number,
+          controller: _cardNumberController,
+          inputFormatters: <TextInputFormatter> [WhitelistingTextInputFormatter.digitsOnly],
+          onChanged: (value) => bloc.addCardNumber( int.parse(value) ),
+        );
+      }
     );
   }
 
@@ -228,11 +132,12 @@ class AddNewAccountScreen extends StatelessWidget {
           return IconButton(
             icon: Icon(Icons.done,
                 color: snapshot.hasData ? Colors.white : Colors.white60),
-            onPressed: snapshot.hasData ? () {
-              bloc.addAccountToDB();
-              Navigator.of(context).pop();
-            }
-            : null,
+            onPressed: snapshot.hasData
+                ? () {
+                    bloc.addAccountToDB();
+                    Navigator.of(context).pop();
+                  }
+                : null,
           );
         });
   }
