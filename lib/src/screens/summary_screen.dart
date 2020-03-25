@@ -102,32 +102,39 @@ class SummaryScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             StreamBuilder(
-              stream: expenseBloc.totalExpenseOfDay,
-              // TODO: check if snapshot has data and if it hasn't show a ProgressIndicator
-              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                return createCard(
-                    "Today Expenses",
-                    _formattedMoneyValue(snapshot.data.toDouble())
-                        .symbolOnRight);
-              },
-            ),
+                stream: expenseBloc.totalExpenseOfDay,
+                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  if (snapshot.hasData)
+                    return createCard(
+                        "Today Expenses",
+                        _formattedMoneyValue(snapshot.data.toDouble())
+                            .symbolOnRight);
+                  else
+                    return CircularProgressIndicator();
+                }),
+
             StreamBuilder(
                 stream: incomesBloc.incomesOfToday,
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  return createCard(
-                      "Today Incomes",
-                      _formattedMoneyValue(snapshot.data.toDouble())
-                          .symbolOnRight);
+                  if (snapshot.hasData)
+                    return createCard(
+                        "Today Incomes",
+                        _formattedMoneyValue(snapshot.data.toDouble())
+                            .symbolOnRight);
+                  else
+                    return CircularProgressIndicator();
                 }),
+
             StreamBuilder(
                 stream: accountsBloc.totalBankAmount,
-
-                // TODO: check if snapshot has data and if it hasn't show a ProgressIndicator
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  return createCard(
-                      "Total Balance",
-                      _formattedMoneyValue(snapshot.data.toDouble())
-                          .symbolOnRight);
+                  if (snapshot.hasData)
+                    return createCard(
+                        "Total Balance",
+                        _formattedMoneyValue(snapshot.data.toDouble())
+                            .symbolOnRight);
+                  else
+                    return CircularProgressIndicator();
                 }),
           ],
         ),
