@@ -46,34 +46,26 @@ class AddIncomeScreen extends StatelessWidget {
       title: Text("Add New Income"),
       centerTitle: true,
       actions: <Widget>[
-        IconButton(
-            icon: Icon(Icons.done),
-            onPressed: () {
-              bloc.submitToDB();
-
-              // back to previous screen after new income submitted
-              Navigator.of(context).pop();
-            }),
+        _submitButton(context),
       ],
     );
   }
 
-  Widget textFieldsTheme(Widget textField, {Color primaryColor}) {
-    /*
-     * method to create text fields theme in order to change color 
-     * when there was an error.
-     * 
-     * @params Widget, Color
-     * @return Widget
-     */
-
-    return Theme(
-      child: textField,
-      data: ThemeData(
-          primaryColor: primaryColor,
-          accentColor: Colors.white,
-          hintColor: Colors.white54,
-          textSelectionColor: Colors.white),
+  Widget _submitButton(BuildContext context) {
+    return StreamBuilder(
+      stream: bloc.validateSubmit,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        return IconButton(
+          icon: Icon(
+            Icons.done,
+            color: snapshot.hasData ? Colors.white : Colors.white54,
+          ),
+          onPressed: snapshot.hasData ? () {
+            bloc.submitToDB();
+            Navigator.of(context).pop();
+          } : null,
+        );
+      },
     );
   }
 
