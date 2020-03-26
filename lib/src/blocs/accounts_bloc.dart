@@ -98,15 +98,23 @@ class AccountsBloc extends Object with AccountValidator {
     getTotalBankAmount();
   }
 
-  void updateAccount(AccountModel account) {
+  void updateAccount(int id) {
     /*
      * updateAccount helper method to directly update AccountModel
      * inside database with created bloc instance and then update accounts stream
      * 
-     * @params AccountModel
+     * @param int
      * @return 
      */
-    _repo.updateAccount(account);
+  
+    final AccountModel _accountToUpdate = AccountModel(
+      id: id,
+      title: _titleController.value,
+      initalAmount: _initialAmountController.value,
+      cardNumber: _cardNumberController.value,
+    );
+
+    _repo.updateAccount(_accountToUpdate);
     getAllAccounts();
     getTotalBankAmount();
   }
