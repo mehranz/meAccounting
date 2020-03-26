@@ -11,10 +11,10 @@ class AddNewAccountScreen extends StatelessWidget {
 
   final bloc = AccountsBloc();
 
-  // text controllers to get value of textfields
-  final _titleController = TextEditingController();
-  final _amountController = TextEditingController();
-  final _cardNumberController = TextEditingController();
+  // text controllers to control value of textfields
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+  final cardNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
