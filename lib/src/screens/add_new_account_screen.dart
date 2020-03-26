@@ -4,7 +4,7 @@ import 'package:meAccounting/src/blocs/accounts_bloc.dart';
 import 'package:meAccounting/src/widgets/custom_text_field.dart';
 
 class AddNewAccountScreen extends StatelessWidget {
-  /**
+  /*
    * Widget to show Add Account Screen
    * 
    */
@@ -29,7 +29,9 @@ class AddNewAccountScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Add New Account"),
         centerTitle: true,
-        actions: <Widget>[submitButton(context)],
+        actions: <Widget>[
+          submitButton(context, bloc.addAccountToDB),
+        ],
       ),
       body: Container(
         margin: EdgeInsets.all(20),
@@ -100,29 +102,31 @@ class AddNewAccountScreen extends StatelessWidget {
      */
 
     return StreamBuilder(
-      stream: bloc.cardNumberStream,
-      builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+        stream: bloc.cardNumberStream,
+        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
           if (controller.text.isNotEmpty)
             bloc.addCardNumber(int.parse(controller.text));
 
-        return CustomTextField(
-          "Card Number",
-          "Enter Your Card Number Here",
-          errorText: snapshot.hasError ? snapshot.error : null,
-          keyboardType: TextInputType.number,
+          return CustomTextField(
+            "Card Number",
+            "Enter Your Card Number Here",
+            errorText: snapshot.hasError ? snapshot.error : null,
+            keyboardType: TextInputType.number,
             controller: controller,
             inputFormatters: <TextInputFormatter>[
               WhitelistingTextInputFormatter.digitsOnly
             ],
             onChanged: (value) => bloc.addCardNumber(int.parse(value)),
-    );
+          );
         });
   }
 
-  Widget submitButton(BuildContext context) {
+  Widget submitButton(BuildContext context, Function submit) {
     /**
-     * button to submit user changes and add them to database
-     * @params BuildContext
+     * button to submit user changes
+     * 
+     * @param BuildContext
+     * @param Function
      * @return Widget
      */
 
@@ -134,7 +138,7 @@ class AddNewAccountScreen extends StatelessWidget {
                 color: snapshot.hasData ? Colors.white : Colors.white60),
             onPressed: snapshot.hasData
                 ? () {
-                    bloc.addAccountToDB();
+                    submit();
                     Navigator.of(context).pop();
                   }
                 : null,
