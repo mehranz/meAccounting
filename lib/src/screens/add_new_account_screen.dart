@@ -34,89 +34,89 @@ class AddNewAccountScreen extends StatelessWidget {
       body: Container(
         margin: EdgeInsets.all(20),
         child: Column(children: <Widget>[
-          titleField(),
-          initialAmountField(),
-          cardNumberField(),
+          titleField(titleController),
+          initialAmountField(amountController),
+          cardNumberField(cardNumberController),
         ]),
       ),
     );
   }
 
-  Widget textFieldsTheme(Widget textField, {Color primaryColor}) {
-    return Theme(
-      child: textField,
-      data: ThemeData(
-          primaryColor: primaryColor,
-          accentColor: Colors.white,
-          hintColor: Colors.white54,
-          textSelectionColor: Colors.white),
-    );
-  }
-
-  Widget titleField() {
+  Widget titleField(TextEditingController controller) {
     /**
      * title field widget to get user's input for title element
-     * @params
+     * @param TextEditingController
      * @return Widget
      */
 
     return StreamBuilder(
         stream: bloc.titleStream,
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (controller.text.isNotEmpty) bloc.addTitle(controller.text);
+
           return CustomTextField(
             "Title",
             "Title",
             errorText: snapshot.hasError ? snapshot.error : null,
-            controller: _titleController,
+            controller: controller,
             onChanged: (value) => bloc.addTitle(value),
           );
         });
   }
 
-  Widget initialAmountField() {
+  Widget initialAmountField(TextEditingController controller) {
     /**
      * initial amount field widget to get user's input for initial amount element
-     * @params
+     * @param TextEditingController
      * @return Widget
      */
 
     return StreamBuilder(
       stream: bloc.initialAmountStream,
       builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+        if (controller.text.isNotEmpty)
+          bloc.addInitialAmount(int.parse(controller.text));
+
         return CustomTextField(
           "Amount",
           "How Much Do You Have in This Account Right Now?",
           errorText: snapshot.hasError ? snapshot.error : null,
           keyboardType: TextInputType.number,
-          controller: _amountController,
-          inputFormatters: <TextInputFormatter> [WhitelistingTextInputFormatter.digitsOnly],
-          onChanged: (value) => bloc.addInitialAmount( int.parse(value) ),
+          controller: controller,
+          inputFormatters: <TextInputFormatter>[
+            WhitelistingTextInputFormatter.digitsOnly
+          ],
+          onChanged: (value) => bloc.addInitialAmount(int.parse(value)),
         );
       },
     );
   }
 
-  Widget cardNumberField() {
+  Widget cardNumberField(TextEditingController controller) {
     /**
      * card number field widget to get user's input for card number element
-     * @params
+     * @param TextEditingController
      * @return Widget
      */
 
     return StreamBuilder(
       stream: bloc.cardNumberStream,
       builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          if (controller.text.isNotEmpty)
+            bloc.addCardNumber(int.parse(controller.text));
+
         return CustomTextField(
           "Card Number",
           "Enter Your Card Number Here",
           errorText: snapshot.hasError ? snapshot.error : null,
           keyboardType: TextInputType.number,
-          controller: _cardNumberController,
-          inputFormatters: <TextInputFormatter> [WhitelistingTextInputFormatter.digitsOnly],
-          onChanged: (value) => bloc.addCardNumber( int.parse(value) ),
-        );
-      }
+            controller: controller,
+            inputFormatters: <TextInputFormatter>[
+              WhitelistingTextInputFormatter.digitsOnly
+            ],
+            onChanged: (value) => bloc.addCardNumber(int.parse(value)),
     );
+        });
   }
 
   Widget submitButton(BuildContext context) {
