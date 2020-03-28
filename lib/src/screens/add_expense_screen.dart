@@ -55,11 +55,11 @@ class AddNewExpensesScreen extends StatelessWidget {
     return AppBar(
       title: Text("Add New Expense"),
       centerTitle: true,
-      actions: <Widget>[submitButton(context)],
+      actions: <Widget>[submitButton(context, bloc.submitToDB)],
     );
   }
 
-  Widget submitButton(BuildContext context) {
+  Widget submitButton(BuildContext context, Function submit) {
     /*
      * method to create submit button on appBar actions
      * 
@@ -73,7 +73,7 @@ class AddNewExpensesScreen extends StatelessWidget {
         return IconButton(
           onPressed: snapshot.hasData
               ? () {
-                  bloc.submitToDB();
+                  submit();
                   Navigator.of(context).pop();
                 }
               : null,
@@ -107,7 +107,7 @@ class AddNewExpensesScreen extends StatelessWidget {
      * 
      * @return Widget
      */
-
+    
     // if controller has value, add it to related stream
     if (controller.text.isNotEmpty) bloc.addTitle(controller.text);
 
@@ -127,7 +127,7 @@ class AddNewExpensesScreen extends StatelessWidget {
      * 
      * @return Widget
      */
-
+      
     // if controller has value, add it to related stream
     if (controller.text.isNotEmpty) bloc.addAmount( int.parse(controller.text) );
 
