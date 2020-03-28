@@ -13,9 +13,9 @@ class AddNewExpensesScreen extends StatelessWidget {
 
   // text controller for every text field in order to controll them
   // and get their values out
-  final TextEditingController _titleFieldController = TextEditingController();
-  final TextEditingController _amountFieldController = TextEditingController();
-  final TextEditingController _descriptionsFieldController =
+  final TextEditingController titleFieldController = TextEditingController();
+  final TextEditingController amountFieldController = TextEditingController();
+  final TextEditingController descriptionsFieldController =
       TextEditingController();
   final TextEditingController _bankAccountFieldController =
       TextEditingController();
