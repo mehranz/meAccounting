@@ -73,6 +73,7 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
         ),
         child: Container(
             margin: EdgeInsets.all(8),
+        child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               hint: Text(
                 "Select Your Account",
@@ -88,7 +89,10 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
                   child: Text(value.title),
                 );
               }).toList(),
-            )));
+          ),
+        ),
+      ),
+    );
   }
 
   _loadAccounts() async {
