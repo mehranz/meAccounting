@@ -35,9 +35,9 @@ class AddNewExpensesScreen extends StatelessWidget {
           margin: EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
-              textFieldsTheme(titleField()),
-              textFieldsTheme(amountField()),
-              textFieldsTheme(descriptionsField()),
+              textFieldsTheme(titleField(titleFieldController)),
+              textFieldsTheme(amountField(amountFieldController)),
+              textFieldsTheme(descriptionsField(descriptionsFieldController)),
               accountsFieldDropdown(),
             ],
           ),
@@ -101,29 +101,35 @@ class AddNewExpensesScreen extends StatelessWidget {
     );
   }
 
-  Widget titleField() {
+  Widget titleField(TextEditingController controller) {
     /*
      * method to create title text field
      * 
      * @return Widget
      */
 
+    // if controller has value, add it to related stream
+    if (controller.text.isNotEmpty) bloc.addTitle(controller.text);
+
     return StreamBuilder(
         stream: bloc.titleStream,
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           return CustomTextField("Title", "Enter Title Here",
               errorText: snapshot.hasError ? snapshot.error : null,
-              controller: _titleFieldController,
+              controller: controller,
               onChanged: (value) => bloc.addTitle(value));
         });
   }
 
-  Widget amountField() {
+  Widget amountField(TextEditingController controller) {
     /*
      * method to create amount text field
      * 
      * @return Widget
      */
+
+    // if controller has value, add it to related stream
+    if (controller.text.isNotEmpty) bloc.addAmount( int.parse(controller.text) );
 
     return StreamBuilder(
       stream: bloc.amountStream,
@@ -132,7 +138,7 @@ class AddNewExpensesScreen extends StatelessWidget {
           "Amount",
           "Enter Amount Here",
           errorText: snapshot.hasError ? snapshot.error : null,
-          controller: _amountFieldController,
+          controller: controller,
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
             WhitelistingTextInputFormatter.digitsOnly
@@ -143,12 +149,15 @@ class AddNewExpensesScreen extends StatelessWidget {
     );
   }
 
-  Widget descriptionsField() {
+  Widget descriptionsField(TextEditingController controller) {
     /*
      * method to create descriptions text field
      * 
      * @return Widget
      */
+
+    // if controller has value, add it to related stream
+    if (controller.text.isNotEmpty) bloc.addDescriptions(controller.text);
 
     return StreamBuilder(
         stream: bloc.descriptionsStream,
@@ -157,7 +166,7 @@ class AddNewExpensesScreen extends StatelessWidget {
             "Descriptions",
             "Enter Descriptions Here",
             errorText: snapshot.hasError ? snapshot.error : null,
-            controller: _descriptionsFieldController,
+            controller: controller,
             onChanged: (value) => bloc.addDescriptions(value),
           );
         });
