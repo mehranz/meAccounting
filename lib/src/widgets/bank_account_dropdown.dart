@@ -54,7 +54,7 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
      */
 
     super.initState();
-    
+
     _currentDropdownMenuItem = _currentValue;
 
     // load all accounts from database
@@ -68,27 +68,31 @@ class _BankAccountWidgetState extends State<BankAccountDropdown> {
      */
 
     return Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Theme.of(context).primaryColor,
-        ),
-        child: Container(
-            margin: EdgeInsets.all(8),
+      data: Theme.of(context).copyWith(
+        canvasColor: Theme.of(context).primaryColor,
+      ),
+      child: Container(
+        margin: EdgeInsets.all(8),
         child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              hint: Text(
-                "Select Your Account",
-                style: TextStyle(color: Colors.white54),
-              ),
-              onChanged: onChanged,
-              value: _currentDropdownMenuItem,
-              style: TextStyle(color: Colors.white),
-              isExpanded: true,
-              items: _accounts.map((AccountModel value) {
-                return DropdownMenuItem<String>(
-                  value: value.id.toString(),
-                  child: Text(value.title),
-                );
-              }).toList(),
+          child: DropdownButton<String>(
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.white54,
+            ),
+            hint: Text(
+              "Select Your Account",
+              style: TextStyle(color: Colors.white54),
+            ),
+            onChanged: onChanged,
+            value: _currentDropdownMenuItem,
+            style: TextStyle(color: Colors.white),
+            isExpanded: true,
+            items: _accounts.map((AccountModel value) {
+              return DropdownMenuItem<String>(
+                value: value.id.toString(),
+                child: Text(value.title),
+              );
+            }).toList(),
           ),
         ),
       ),
