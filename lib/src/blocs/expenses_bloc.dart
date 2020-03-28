@@ -80,6 +80,11 @@ class ExpensesBloc extends Object with ExpensesValidator {
      * 
      * @params ExpenseModel 
      */
+   
+    expense.title = _titleController.value;
+    expense.amount = _amountController.value;
+    expense.descriptions = _descriptionsController.value;
+    expense.accountId = _accountIdController.value;
 
     _repo.updateExpense(expense);
 
