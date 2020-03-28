@@ -172,12 +172,14 @@ class AddNewExpensesScreen extends StatelessWidget {
         });
   }
 
-  Widget accountsFieldDropdown() {
+  Widget accountsFieldDropdown({int currentValue}) {
     /*
      * helper method to create accounts field dropdown widget
      * 
      * @return Widget
      */
+
+    if (currentValue != null) bloc.addAccountId(currentValue);
 
     return Card(
       margin: EdgeInsets.all(10),
@@ -185,7 +187,8 @@ class AddNewExpensesScreen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Color(0XFF406B96),
       child: BankAccountDropdown(
-        (value) => bloc.addAccountId(int.parse(value))
+        (value) => bloc.addAccountId(int.parse(value)),
+        currentValue: currentValue != null ? currentValue.toString() : null,
       ),
     );
   }
