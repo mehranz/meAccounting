@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:meAccounting/src/blocs/incomes_bloc.dart';
 import 'package:meAccounting/src/models/income_model.dart';
 import 'package:meAccounting/src/screens/add_incomes_screen.dart';
-import 'package:meAccounting/src/widgets/bank_account_dropdown.dart';
 
 class EditIncomeScreen extends AddIncomeScreen {
   /*
