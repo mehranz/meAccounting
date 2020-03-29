@@ -79,20 +79,23 @@ class AddIncomeScreen extends StatelessWidget {
     return Container(
         margin: EdgeInsets.all(20),
         child: Column(children: <Widget>[
-          titleField(),
-          amountField(),
-          descriptionsField(),
+          titleField(titleController),
+          amountField(amountController),
+          descriptionsField(descriptionsController),
           accountIdField(),
         ]));
   }
 
-  Widget titleField() {
+  Widget titleField(TextEditingController controller) {
     /*
      * method to create title field and get user's input
      * and push it to stream.
      * 
      * @return Widget
      */
+
+    // if controller has value, add it to related stream
+    if (titleController.text.isNotEmpty) bloc.addTitle(titleController.text);
 
     return StreamBuilder(
         stream: bloc.title,
@@ -101,19 +104,22 @@ class AddIncomeScreen extends StatelessWidget {
             "Title",
             "Enter Your Title Here",
             errorText: snapshot.hasError ? snapshot.error : null,
-            controller: _titleController,
+            controller: controller,
             onChanged: (value) => bloc.addTitle(value),
           );
         });
   }
 
-  Widget amountField() {
+  Widget amountField(TextEditingController controller) {
     /*
      * method to create amount field and get user's input
      * and push it to stream.
      * 
      * @return Widget
      */
+
+    // if controller has value, add it to related stream
+    if (amountController.text.isNotEmpty) bloc.addAmount( int.parse(amountController.text) );
 
     return StreamBuilder(
         stream: bloc.amount,
@@ -122,7 +128,7 @@ class AddIncomeScreen extends StatelessWidget {
             "Amount",
             "Enter Amount Here",
             errorText: snapshot.hasError ? snapshot.error : null,
-            controller: _amountController,
+            controller: controller,
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
               WhitelistingTextInputFormatter.digitsOnly
@@ -143,7 +149,7 @@ class AddIncomeScreen extends StatelessWidget {
     );
   }
 
-  Widget descriptionsField() {
+  Widget descriptionsField(TextEditingController controller) {
     /*
      * method to create descriptions field and get user's input 
      * and push it to stream.
@@ -151,6 +157,9 @@ class AddIncomeScreen extends StatelessWidget {
      * @return Widget
      */
 
+    // if controller has value, add it to related stream
+    if (descriptionsController.text.isNotEmpty) bloc.addDescriptions(descriptionsController.text);
+    
     return StreamBuilder(
       stream: bloc.descriptions,
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -158,7 +167,7 @@ class AddIncomeScreen extends StatelessWidget {
           "Descriptions",
           "Enter Descriptions of Income",
           errorText: snapshot.hasError ? snapshot.error : null,
-          controller: _descriptionsController,
+          controller: controller,
           onChanged: (value) => bloc.addDescriptions(value),
         );
       },
