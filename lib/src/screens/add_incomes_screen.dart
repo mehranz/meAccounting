@@ -46,12 +46,12 @@ class AddIncomeScreen extends StatelessWidget {
       title: Text("Add New Income"),
       centerTitle: true,
       actions: <Widget>[
-        _submitButton(context),
+        submitButton(context, bloc.submitToDB),
       ],
     );
   }
 
-  Widget _submitButton(BuildContext context) {
+  Widget submitButton(BuildContext context, Function submit) {
     return StreamBuilder(
       stream: bloc.validateSubmit,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -60,10 +60,12 @@ class AddIncomeScreen extends StatelessWidget {
             Icons.done,
             color: snapshot.hasData ? Colors.white : Colors.white54,
           ),
-          onPressed: snapshot.hasData ? () {
-            bloc.submitToDB();
+          onPressed: snapshot.hasData
+              ? () {
+                  submit();
             Navigator.of(context).pop();
-          } : null,
+                }
+              : null,
         );
       },
     );
