@@ -14,10 +14,10 @@ class AddIncomeScreen extends StatelessWidget {
   final bloc = IncomesBloc();
 
   // create a text editing controller for each text field
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
   final TextEditingController _accountIdController = TextEditingController();
-  final TextEditingController _descriptionsController = TextEditingController();
+  final TextEditingController descriptionsController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
