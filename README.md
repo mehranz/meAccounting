@@ -9,6 +9,7 @@ _I know App's UI may be bad! that's because I'm not front-end guy! so if you can
 
 There are some screenshot from App's UI above:
 ![meAccountingScreenshots](./screenshots/allscreenshots_v0.0.1alpha.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmeh666ran%2FmeAccounting.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmeh666ran%2FmeAccounting?ref=badge_shield)
 
 if you are looking for apk files, [you can find them here.](https://github.com/meh666ran/meAccounting/releases)
 
@@ -31,3 +32,7 @@ if you are looking for apk files, [you can find them here.](https://github.com/m
 - [ ] add different currencies
 - [ ] shopping list
 - [ ] add persian language
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmeh666ran%2FmeAccounting.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmeh666ran%2FmeAccounting?ref=badge_large)
