@@ -85,6 +85,11 @@ class IncomesBloc extends Object with IncomesValidator {
      * @params IncomeModel
      */
 
+    income.title = _titleController.value;
+    income.amount = _amountController.value;
+    income.descriptions = _descriptionsController.value;
+    income.account_id = _accountIdController.value;
+    
     _repo.updateIncome(income);
 
     getAllIncomes();
