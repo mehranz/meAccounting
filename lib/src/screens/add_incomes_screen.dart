@@ -63,7 +63,7 @@ class AddIncomeScreen extends StatelessWidget {
           onPressed: snapshot.hasData
               ? () {
                   submit();
-            Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                 }
               : null,
         );
@@ -119,7 +119,7 @@ class AddIncomeScreen extends StatelessWidget {
      * 
      * @return Widget
      */
-
+    
     // if controller has value, add it to related stream
     if (amountController.text.isNotEmpty) bloc.addAmount( int.parse(amountController.text) );
 
@@ -140,14 +140,19 @@ class AddIncomeScreen extends StatelessWidget {
         });
   }
 
-  Widget accountIdField() {
+  Widget accountIdField({int currentValue}) {
+
+    if (currentValue != null) bloc.addAccountId(currentValue);
+
     return Card(
       margin: EdgeInsets.only(left: 10, right: 10, top: 10),
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Color(0XFF406B96),
-      child:
-          BankAccountDropdown((value) => bloc.addAccountId(int.parse(value))),
+      child: BankAccountDropdown(
+        (value) => bloc.addAccountId(int.parse(value)),
+        currentValue: currentValue != null ? currentValue.toString() : null,
+      ),
     );
   }
 
