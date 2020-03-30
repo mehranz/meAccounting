@@ -17,17 +17,13 @@ class AccountsBloc extends Object with AccountValidator {
 
   // create streams for every state wanted to be controlled
   final StreamController _accountsController =
-      StreamController<List<AccountModel>>();
+      StreamController<List<AccountModel>>.broadcast();
 
   final _titleController = BehaviorSubject<String>();
   final _initialAmountController = BehaviorSubject<int>();
   final _cardNumberController = BehaviorSubject<int>();
 
   final StreamController _totalBankAmountController = StreamController<int>();
-
-  AccountsBloc() {
-    getAllAccounts();
-  }
 
   // ============ getters section
   Stream<List<AccountModel>> get accounts => _accountsController.stream;
@@ -81,7 +77,7 @@ class AccountsBloc extends Object with AccountValidator {
     );
 
     _repo.createAccount(_accToAddToDB);
-    getAllAccounts();
+
     getTotalBankAmount();
   }
 
@@ -115,7 +111,6 @@ class AccountsBloc extends Object with AccountValidator {
     );
 
     _repo.updateAccount(_accountToUpdate);
-    getAllAccounts();
     getTotalBankAmount();
   }
 

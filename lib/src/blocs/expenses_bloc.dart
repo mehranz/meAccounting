@@ -69,8 +69,6 @@ class ExpensesBloc extends Object with ExpensesValidator {
       account.initalAmount -= expense.amount;
       _repo.updateAccount(account);
     });
-
-    getAllExpenses();
   }
 
   updateExpense(ExpenseModel expense) {
@@ -87,8 +85,6 @@ class ExpensesBloc extends Object with ExpensesValidator {
     expense.accountId = _accountIdController.value;
 
     _repo.updateExpense(expense);
-
-    getAllExpenses();
   }
 
   deleteExpense(ExpenseModel expense) {

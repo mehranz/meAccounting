@@ -75,7 +75,6 @@ class IncomesBloc extends Object with IncomesValidator {
       _repo.updateAccount(account);
     });
 
-    getAllIncomes();
   }
 
   updateIncome(IncomeModel income) {
@@ -91,8 +90,6 @@ class IncomesBloc extends Object with IncomesValidator {
     income.account_id = _accountIdController.value;
     
     _repo.updateIncome(income);
-
-    getAllIncomes();
   }
 
   deleteIncome(IncomeModel income) {
