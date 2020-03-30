@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:meAccounting/src/blocs/incomes_bloc.dart';
+import 'package:meAccounting/src/blocs/incomes_provider.dart';
 import 'package:meAccounting/src/models/income_model.dart';
 import 'package:meAccounting/src/screens/add_incomes_screen.dart';
 import 'package:meAccounting/src/screens/edit_income_screen.dart';
@@ -9,9 +10,6 @@ class IncomesScreen extends StatelessWidget {
   /*
    * class to create incomes screen and hold all elements of screen
    */
-
-  // create an instance of incomes bloc in order to access to streams
-  final bloc = IncomesBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +20,14 @@ class IncomesScreen extends StatelessWidget {
      * @return Widget
      */
 
+    final IncomesBloc bloc = IncomesProvider.of(context);
+    bloc.getAllIncomes();
+
     // visual scaffold with body includes all incomes listview
     return Scaffold(
       appBar: appBar(),
       floatingActionButton: addNewIncomeFloatingButton(context),
-      body: incomesListView(),
+      body: incomesListView(bloc),
     );
   }
 
@@ -61,15 +62,13 @@ class IncomesScreen extends StatelessWidget {
     );
   }
 
-  Widget incomesListView() {
+  Widget incomesListView(IncomesBloc bloc) {
     /*
      * method to create stream builder in order to read from expenses stream
      * and show all expenses comes from repository sources (database here)
      * 
      * @return Widget
      */
-
-    bloc.getAllIncomes();
 
     return StreamBuilder(
       stream: bloc.incomes,

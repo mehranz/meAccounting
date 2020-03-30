@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:meAccounting/src/blocs/accounts_bloc.dart';
+import 'package:meAccounting/src/blocs/accounts_provider.dart';
 import 'package:meAccounting/src/models/account_model.dart';
 import 'package:meAccounting/src/screens/add_new_account_screen.dart';
 import 'package:meAccounting/src/screens/edit_account_screen.dart';
@@ -10,8 +11,6 @@ class AccountsScreen extends StatelessWidget {
    * Widget to show Accounts Screen
    * 
    */
-
-  final bloc = AccountsBloc();
 
   // TODO: make some helper methods for UI elements to make code cleaner
   // TODO: make accounts screen have new accounts added need to be refreshed
@@ -26,6 +25,9 @@ class AccountsScreen extends StatelessWidget {
     // global key for pointing to state of scaffold
     // in order to show a SnackBar
     final key = new GlobalKey<ScaffoldState>();
+
+    final AccountsBloc bloc = AccountsProvider.of(context);
+    bloc.getAllAccounts();
 
     return Scaffold(
       key: key,

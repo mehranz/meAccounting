@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:meAccounting/src/blocs/expenses_bloc.dart';
+import 'package:meAccounting/src/blocs/expenses_provider.dart';
 import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/screens/add_expense_screen.dart';
 import 'package:meAccounting/src/screens/edit_expense_screen.dart';
 
 class ExpensesScreen extends StatelessWidget {
-  final bloc = ExpensesBloc();
-  /**
+  /*
    * Widget to hold expenses screen's elements
    * 
    * this file is to messy right now! and it don't have any logic and it's becaust it was just a perview of UI for now.
@@ -23,6 +23,10 @@ class ExpensesScreen extends StatelessWidget {
      * @param BuildContext
      * @return Widget
      */
+
+    final ExpensesBloc bloc = ExpensesProvider.of(context);
+    bloc.getAllExpenses();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Expenses"),
@@ -39,12 +43,12 @@ class ExpensesScreen extends StatelessWidget {
         ),
       ),
       body: Container(
-        child: createExpensesList(),
+        child: createExpensesList(bloc),
       ),
     );
   }
 
-  Widget createExpensesList() {
+  Widget createExpensesList(ExpensesBloc bloc) {
     /*
      * method to create stream builder in order to read from expenses stream
      * and show all expenses comes from repository sources (database here)
