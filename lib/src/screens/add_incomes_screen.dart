@@ -63,6 +63,7 @@ class AddIncomeScreen extends StatelessWidget {
           onPressed: snapshot.hasData
               ? () {
                   submit();
+                  bloc.dispose();
                   Navigator.of(context).pop();
                 }
               : null,
