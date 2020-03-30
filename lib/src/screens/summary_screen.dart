@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:meAccounting/src/blocs/accounts_bloc.dart';
+import 'package:meAccounting/src/blocs/accounts_provider.dart';
 import 'package:meAccounting/src/blocs/expenses_bloc.dart';
+import 'package:meAccounting/src/blocs/expenses_provider.dart';
 import 'package:meAccounting/src/blocs/incomes_bloc.dart';
+import 'package:meAccounting/src/blocs/incomes_provider.dart';
 import 'package:meAccounting/src/screens/accounts_screen.dart';
 import 'package:meAccounting/src/screens/expenses_screen.dart';
 import 'package:meAccounting/src/screens/incomes_screen.dart';
@@ -43,8 +46,14 @@ class SummaryScreen extends StatelessWidget {
             FlatButton.icon(
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => ExpensesScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (ctx) => ExpensesProvider(
+                      child: ExpensesScreen(),
+                    ),
+                  ),
+                );
               },
               icon: Icon(
                 Icons.attach_money,
@@ -61,8 +70,14 @@ class SummaryScreen extends StatelessWidget {
             FlatButton.icon(
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => AccountsScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (ctx) => AccountsProvider(
+                      child: AccountsScreen(),
+                    ),
+                  ),
+                );
               },
               icon: Icon(
                 Icons.account_balance,
@@ -79,8 +94,14 @@ class SummaryScreen extends StatelessWidget {
             FlatButton.icon(
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => IncomesScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (ctx) => IncomesProvider(
+                      child: IncomesScreen(),
+                    ),
+                  ),
+                );
               },
               icon: Icon(
                 Icons.call_received,
@@ -112,7 +133,6 @@ class SummaryScreen extends StatelessWidget {
                   else
                     return CircularProgressIndicator();
                 }),
-
             StreamBuilder(
                 stream: incomesBloc.incomesOfToday,
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
@@ -124,7 +144,6 @@ class SummaryScreen extends StatelessWidget {
                   else
                     return CircularProgressIndicator();
                 }),
-
             StreamBuilder(
                 stream: accountsBloc.totalBankAmount,
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
