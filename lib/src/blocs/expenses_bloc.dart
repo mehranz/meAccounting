@@ -15,8 +15,8 @@ class ExpensesBloc  with ExpensesValidator {
   final _repo = Repo();
 
 // create streams for every state wanted to be controlled
-  final StreamController _expensesController =
-      StreamController<List<ExpenseModel>>();
+  final _expensesController =
+      BehaviorSubject<List<ExpenseModel>>();
 
   final _titleController = BehaviorSubject<String>();
   final _amountController = BehaviorSubject<int>();
