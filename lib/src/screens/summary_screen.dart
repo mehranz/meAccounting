@@ -16,9 +16,6 @@ class SummaryScreen extends StatelessWidget {
    */
 
   // TODO: probably it's better to make a bloc just for this screen
-  final expenseBloc = ExpensesBloc();
-  final accountsBloc = AccountsBloc();
-  final incomesBloc = IncomesBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +25,9 @@ class SummaryScreen extends StatelessWidget {
     * @return Widget
     */
 
+    final ExpensesBloc expenseBloc = ExpensesProvider.of(context);
+    final AccountsBloc accountsBloc = AccountsProvider.of(context);
+    final IncomesBloc incomesBloc = IncomesProvider.of(context);
     expenseBloc.getTotalExpensesOfToday();
     accountsBloc.getTotalBankAmount();
     incomesBloc.getIncomesOfToday();
