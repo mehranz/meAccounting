@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:meAccounting/src/models/expense_model.dart';
 import 'package:meAccounting/src/res/repo.dart';
 
-class ExpensesBloc extends Object with ExpensesValidator {
+class ExpensesBloc  with ExpensesValidator {
   /*
    * ExpensesBloc Class to provide business logic in order to handle states of app
    */
