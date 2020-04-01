@@ -43,78 +43,9 @@ class SummaryScreen extends StatelessWidget {
         color: Color(0XFF20303F),
         child: ListView(
           children: <Widget>[
-            FlatButton.icon(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (ctx) => ExpensesProvider(
-                      child: ExpensesScreen(),
-                    ),
-                  ),
-                );
-              },
-              icon: Icon(
-                Icons.attach_money,
-                color: Colors.white,
-                size: 35,
-              ),
-              // color: Colors.greenAccent,
-              label: Text(
-                "Expenses",
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              padding: EdgeInsets.all(50),
-            ),
-            FlatButton.icon(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (ctx) => AccountsProvider(
-                      child: AccountsScreen(),
-                    ),
-                  ),
-                );
-              },
-              icon: Icon(
-                Icons.account_balance,
-                color: Colors.white,
-                size: 35,
-              ),
-              // color: Colors.greenAccent,
-              label: Text(
-                "Accounts",
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              padding: EdgeInsets.all(50),
-            ),
-            FlatButton.icon(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (ctx) => IncomesProvider(
-                      child: IncomesScreen(),
-                    ),
-                  ),
-                );
-              },
-              icon: Icon(
-                Icons.call_received,
-                color: Colors.white,
-                size: 35,
-              ),
-              // color: Colors.greenAccent,
-              label: Text(
-                "Incomes",
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              padding: EdgeInsets.all(50),
-            ),
+            _drawerItem(context, "Accounts", Icons.account_balance, AccountsScreen()),
+            _drawerItem(context, "Expenses", Icons.attach_money, ExpensesScreen()),
+            _drawerItem(context, "Incomes", Icons.call_received, IncomesScreen()),
           ],
         ),
       )),
@@ -215,5 +146,39 @@ class SummaryScreen extends StatelessWidget {
     );
 
     return _formatter.output;
+  }
+
+  Widget _drawerItem(BuildContext context, String label, IconData icon, Widget screen) {
+    /**
+     * helper method to create app drawer items
+     *
+     * @param BuildContext
+     * @param String
+     * @param IconData
+     * @param Widget
+     * @return Widget
+     */
+    return FlatButton.icon(
+      onPressed: () {
+        Navigator.of(context).pop();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => screen,
+          ),
+        );
+      },
+      icon: Icon(
+        icon,
+        color: Colors.white,
+        size: 35,
+      ),
+      // color: Colors.greenAccent,
+      label: Text(
+        label,
+        style: TextStyle(fontSize: 20, color: Colors.white),
+      ),
+      padding: EdgeInsets.all(50),
+    );
   }
 }
