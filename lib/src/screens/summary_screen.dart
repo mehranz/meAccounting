@@ -55,12 +55,19 @@ class SummaryScreen extends StatelessWidget {
           children: <Widget>[
             StreamBuilder(
                 stream: expenseBloc.totalExpenseOfDay,
-                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
                   if (snapshot.hasData)
                     return createCard(
                         "Today Expenses",
-                        _formattedMoneyValue(snapshot.data.toDouble())
-                            .symbolOnRight);
+                        _formattedMoneyValue(snapshot.data[0].toDouble())
+                            .symbolOnRight,
+                        arrowIcon: Icon(
+                          snapshot.data[0] >= snapshot.data[1]
+                              ? Icons.arrow_upward
+                              : Icons.arrow_downward,
+                          color: Colors.white,
+                        ));
                   else
                     return CircularProgressIndicator();
                 }),
@@ -144,9 +151,9 @@ class SummaryScreen extends StatelessWidget {
 
   MoneyFormatterOutput _formattedMoneyValue(double amount) {
     /*
-     * method to format money value with 0 fractionDigits, 
+     * method to format money value with 0 fractionDigits,
      * and 'T' symbol (Stands for Toman: Iran's currency)
-     * 
+     *
      * @params double
      * @return MoneyFormatterOutput
      */
