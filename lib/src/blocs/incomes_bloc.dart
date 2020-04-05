@@ -112,7 +112,11 @@ class IncomesBloc extends Object with IncomesValidator {
      */
 
     var _totalIncomesOfToday = await _repo.getTotalIncomesFrom('start of day');
-    _todayTotalIncomesController.sink.add(_totalIncomesOfToday);
+    var _totalIncomesOfYesterday = await _repo.getTotalIncomesFrom('-1 day');
+    _todayTotalIncomesController.sink.add([
+      _totalIncomesOfToday,
+      _totalIncomesOfYesterday - _totalIncomesOfToday,
+    ]);
   }
 
   submitToDB() {
