@@ -108,7 +108,8 @@ class ExpensesBloc  with ExpensesValidator {
 
     var _totalExpensesOfToday =
         await _repo.getTotalExpensesFrom('start of day');
-    _todayTotalExpensesController.sink.add(_totalExpensesOfToday);
+    var _totalExpensesOfYesterday = await _repo.getTotalExpensesFrom('-1 day');
+    _todayTotalExpensesController.sink.add([_totalExpensesOfToday, _totalExpensesOfYesterday - _totalExpensesOfToday]);
   }
 
   void submitToDB() {
