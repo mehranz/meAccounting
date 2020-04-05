@@ -43,9 +43,12 @@ class SummaryScreen extends StatelessWidget {
         color: Color(0XFF20303F),
         child: ListView(
           children: <Widget>[
-            _drawerItem(context, "Accounts", Icons.account_balance, AccountsScreen()),
-            _drawerItem(context, "Expenses", Icons.attach_money, ExpensesScreen()),
-            _drawerItem(context, "Incomes", Icons.call_received, IncomesScreen()),
+            _drawerItem(
+                context, "Accounts", Icons.account_balance, AccountsScreen()),
+            _drawerItem(
+                context, "Expenses", Icons.attach_money, ExpensesScreen()),
+            _drawerItem(
+                context, "Incomes", Icons.call_received, IncomesScreen()),
           ],
         ),
       )),
@@ -173,7 +176,8 @@ class SummaryScreen extends StatelessWidget {
     return _formatter.output;
   }
 
-  Widget _drawerItem(BuildContext context, String label, IconData icon, Widget screen) {
+  Widget _drawerItem(
+      BuildContext context, String label, IconData icon, Widget screen) {
     /**
      * helper method to create app drawer items
      *

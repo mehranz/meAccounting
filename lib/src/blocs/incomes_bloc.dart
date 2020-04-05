@@ -64,7 +64,7 @@ class IncomesBloc extends Object with IncomesValidator {
   addNewIncome(IncomeModel income) async {
     /*
      * method to add new income to database and increase amount of account
-     * 
+     *
      * @params IncomeModel
      */
 
@@ -80,7 +80,7 @@ class IncomesBloc extends Object with IncomesValidator {
   updateIncome(IncomeModel income) {
     /*
      * helper method to update given income inside database
-     * 
+     *
      * @params IncomeModel
      */
 
@@ -88,15 +88,15 @@ class IncomesBloc extends Object with IncomesValidator {
     income.amount = _amountController.value;
     income.descriptions = _descriptionsController.value;
     income.account_id = _accountIdController.value;
-    
+
     _repo.updateIncome(income);
   }
 
   deleteIncome(IncomeModel income) {
     /*
-     * method to delete income from data base 
+     * method to delete income from data base
      * and get all new incomes inside incomes sink
-     * 
+     *
      * @params IncomeModel
      */
 
@@ -107,8 +107,8 @@ class IncomesBloc extends Object with IncomesValidator {
 
   getIncomesOfToday() async {
     /*
-     * method to get total incomes of today and add the value 
-     * to total incomes of day stream 
+     * method to get total incomes of today and add the value
+     * to total incomes of day stream
      */
 
     var _totalIncomesOfToday = await _repo.getTotalIncomesFrom('start of day');
