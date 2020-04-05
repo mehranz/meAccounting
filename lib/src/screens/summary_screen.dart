@@ -92,7 +92,7 @@ class SummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget createCard(String title, String cardValue) {
+  Widget createCard(String title, String cardValue, {Icon arrowIcon}) {
     /**
      * Widget to hold cards of Summary (Home) screen.
      * this cards will hold information like today expenses, incomes and some other useful informations
@@ -121,8 +121,19 @@ class SummaryScreen extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: EdgeInsets.all(5.0),
-                  child: Text(cardValue,
-                      style: TextStyle(color: Colors.white, fontSize: 24.0)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Spacer(),
+                      Text(
+                        cardValue,
+                        style: TextStyle(color: Colors.white, fontSize: 24.0),
+                      ),
+                      Spacer(),
+                      if (arrowIcon != null) arrowIcon,
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 35.0),
