@@ -25,7 +25,7 @@ if you are looking for apk files, [you can find them here.](https://github.com/m
 - [ ] Create Some Helper Methods to make UI code cleaner
 - [x] Split Numbers by 3 Characters
 - [ ] Write Unit Tests
-- [ ] add up and down arrow to show summary blocks compared to yesterday 
+- [x] add up and down arrow to show summary blocks compared to yesterday 
 - [ ] add debts
 - [ ] add different currencies
 - [ ] shopping list
