@@ -24,12 +24,13 @@ class IncomesBloc extends Object with IncomesValidator {
   final _accountIdController = BehaviorSubject<int>();
   final _descriptionsController = BehaviorSubject<String>();
 
-  final StreamController _todayTotalIncomesController = StreamController<int>();
+  final StreamController<List<int>> _todayTotalIncomesController =
+      StreamController<List<int>>();
 
   // setter and getter for each controller's stream and its sink
   //
   Stream<List<IncomeModel>> get incomes => _incomesController.stream;
-  Stream<int> get incomesOfToday => _todayTotalIncomesController.stream;
+  Stream<List<int>> get incomesOfToday => _todayTotalIncomesController.stream;
 
   // Getters for Title Controller
   Stream<String> get title => _titleController.stream.transform(titleValidator);
@@ -74,7 +75,6 @@ class IncomesBloc extends Object with IncomesValidator {
       account.initalAmount += income.amount;
       _repo.updateAccount(account);
     });
-
   }
 
   updateIncome(IncomeModel income) {
