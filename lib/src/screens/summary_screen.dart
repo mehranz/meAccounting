@@ -73,12 +73,19 @@ class SummaryScreen extends StatelessWidget {
                 }),
             StreamBuilder(
                 stream: incomesBloc.incomesOfToday,
-                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
                   if (snapshot.hasData)
                     return createCard(
                         "Today Incomes",
-                        _formattedMoneyValue(snapshot.data.toDouble())
-                            .symbolOnRight);
+                        _formattedMoneyValue(snapshot.data[0].toDouble())
+                            .symbolOnRight,
+                        arrowIcon: Icon(
+                          snapshot.data[0] >= snapshot.data[1]
+                              ? Icons.arrow_upward
+                              : Icons.arrow_downward,
+                          color: Colors.white,
+                        ));
                   else
                     return CircularProgressIndicator();
                 }),
