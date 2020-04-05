@@ -23,12 +23,12 @@ class ExpensesBloc  with ExpensesValidator {
   final _descriptionsController = BehaviorSubject<String>();
   final _accountIdController = BehaviorSubject<int>();
 
-  final StreamController _todayTotalExpensesController =
-      StreamController<int>();
+  final StreamController<List<int>> _todayTotalExpensesController =
+      StreamController<List<int>>();
 
   Stream<List<ExpenseModel>> get expenses => _expensesController.stream;
 
-  Stream<int> get totalExpenseOfDay => _todayTotalExpensesController.stream;
+  Stream<List<int>> get totalExpenseOfDay => _todayTotalExpensesController.stream;
 
   Stream<String> get titleStream => _titleController.stream.transform(validateTitle);
   Function(String) get addTitle => _titleController.sink.add;
