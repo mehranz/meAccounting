@@ -32,84 +32,130 @@ class SummaryScreen extends StatelessWidget {
     accountsBloc.getTotalBankAmount();
     incomesBloc.getIncomesOfToday();
 
-    // TODO: Create Some Helper Methods to make code clean
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Summary"),
-        centerTitle: true,
-      ),
-      drawer: Drawer(
-          child: Container(
+      appBar: _appBar(),
+      drawer: _drawer(context),
+      body: _buildBody(expenseBloc, incomesBloc, accountsBloc),
+    );
+  }
+
+  Widget _appBar() {
+    /**
+     * Helper method to create app bar of screen
+     *
+     * @return Widget
+     */
+
+    return AppBar(
+      title: Text("Summary"),
+      centerTitle: true,
+    );
+  }
+
+  Widget _drawer(BuildContext context) {
+    /**
+     * Helper Method to create drawer of screen
+     *
+     * @param BuildContext
+     * @return Widget
+     */
+
+    return Drawer(
+      child: Container(
         color: Color(0XFF20303F),
-        child: ListView(
-          children: <Widget>[
-            _drawerItem(
-                context, "Accounts", Icons.account_balance, AccountsScreen()),
-            _drawerItem(
-                context, "Expenses", Icons.attach_money, ExpensesScreen()),
-            _drawerItem(
-                context, "Incomes", Icons.call_received, IncomesScreen()),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 25),
+              _drawerItem(
+                  context, "Accounts", Icons.account_balance, AccountsScreen()),
+              _drawerItem(
+                  context, "Expenses", Icons.attach_money, ExpensesScreen()),
+              _drawerItem(
+                  context, "Incomes", Icons.call_received, IncomesScreen()),
+            ],
+          ),
         ),
-      )),
-      body: Container(
-        margin: EdgeInsets.all(20.0),
-        child: ListView(
+      ),
+    );
+  }
+
+  Widget _buildBody(ExpensesBloc expensesBloc, IncomesBloc incomesBloc,
+      AccountsBloc accountsBloc) {
+    /**
+     * Helper method to create body of scaffold
+     *
+     * @param ExpensesBloc
+     * @param IncomesBloc
+     * @param AccountsBloc
+     * @return Widget
+     */
+
+    return Container(
+      margin: EdgeInsets.all(20.0),
+      child: SingleChildScrollView(
+        child: Column(
           children: <Widget>[
-            StreamBuilder(
-                stream: expenseBloc.totalExpenseOfDay,
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
-                  if (snapshot.hasData)
-                    return createCard(
-                        "Today Expenses",
-                        _formattedMoneyValue(snapshot.data[0].toDouble())
-                            .symbolOnRight,
-                        arrowIcon: Icon(
-                          snapshot.data[0] >= snapshot.data[1]
-                              ? Icons.arrow_upward
-                              : Icons.arrow_downward,
-                          color: Colors.white,
-                        ));
-                  else
-                    return CircularProgressIndicator();
-                }),
-            StreamBuilder(
-                stream: incomesBloc.incomesOfToday,
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
-                  if (snapshot.hasData)
-                    return createCard(
-                        "Today Incomes",
-                        _formattedMoneyValue(snapshot.data[0].toDouble())
-                            .symbolOnRight,
-                        arrowIcon: Icon(
-                          snapshot.data[0] >= snapshot.data[1]
-                              ? Icons.arrow_upward
-                              : Icons.arrow_downward,
-                          color: Colors.white,
-                        ));
-                  else
-                    return CircularProgressIndicator();
-                }),
-            StreamBuilder(
-                stream: accountsBloc.totalBankAmount,
-                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  if (snapshot.hasData)
-                    return createCard(
-                        "Total Balance",
-                        _formattedMoneyValue(snapshot.data.toDouble())
-                            .symbolOnRight);
-                  else
-                    return CircularProgressIndicator();
-                }),
+            _buildCardsWidget(expensesBloc.totalExpenseOfDay, "Today Expenses"),
+            _buildCardsWidget(incomesBloc.incomesOfToday, "Today Incomes"),
+            _buildTotalAmountWidget(accountsBloc.totalBankAmount),
           ],
         ),
       ),
     );
   }
 
-  Widget createCard(String title, String cardValue, {Icon arrowIcon}) {
+  Widget _buildCardsWidget(Stream<List<int>> stream, String title) {
+    /**
+     * Helper method to build cards widget with StreamBuilder
+     *
+     * @param Stream<List<int>>
+     * @param String
+     * @return Widget
+     */
+
+    return StreamBuilder(
+        stream: stream,
+        builder: (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
+          if (snapshot.hasData)
+            return _createCard(title,
+                _formattedMoneyValue(snapshot.data[0].toDouble()).symbolOnRight,
+                arrowIcon: Icon(
+                  snapshot.data[0] >= snapshot.data[1]
+                      ? Icons.arrow_upward
+                      : Icons.arrow_downward,
+                  color: Colors.white,
+                ));
+          else
+            return CircularProgressIndicator();
+        });
+  }
+
+  Widget _buildTotalAmountWidget(Stream<int> stream) {
+    /**
+     * Helper method to build total amount widget,
+     *
+     * @param Stream<int>
+     * @return Widget
+     */
+
+    // because function overloading not supported by dart,
+    // I had to make another helper method to build this specific widget
+    return StreamBuilder(
+        stream: stream,
+        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          if (snapshot.hasData)
+            return _createCard(
+                "Total Balance",
+                _formattedMoneyValue(snapshot.data.toDouble())
+                    .symbolOnRight);
+          else
+            return CircularProgressIndicator();
+        },);
+  }
+
+
+  Widget _createCard(String title, String cardValue, {Icon arrowIcon}) {
     /**
      * Widget to hold cards of Summary (Home) screen.
      * this cards will hold information like today expenses, incomes and some other useful informations

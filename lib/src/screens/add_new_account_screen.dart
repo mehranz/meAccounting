@@ -24,7 +24,6 @@ class AddNewAccountScreen extends StatelessWidget {
      * @return Widget
      */
 
-    // TODO: create helper methods to make code clean
     return Scaffold(
       appBar: AppBar(
         title: Text("Add New Account"),
