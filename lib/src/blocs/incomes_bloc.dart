@@ -16,8 +16,7 @@ class IncomesBloc extends Object with IncomesValidator {
   final Repo _repo = Repo();
 
   // create stream for each state wanted to be controlled
-  final StreamController _incomesController =
-      StreamController<List<IncomeModel>>();
+  final _incomesController = BehaviorSubject<List<IncomeModel>>();
 
   final _titleController = BehaviorSubject<String>();
   final _amountController = BehaviorSubject<int>();
