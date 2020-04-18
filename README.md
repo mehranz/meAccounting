@@ -28,7 +28,7 @@ $ flutter run
 ```
 
 # Current Release
-Current Released Version is v0.0.1-alpha and You can Access To Apk files from [this link](https://github.com/meh666ran/meAccounting/releases/tag/v0.0.1-alpha).
+Current Released Version is v0.8.0-beta and You can Access To Apk files from [this link](https://github.com/meh666ran/meAccounting/releases/tag/0.8.0-beta).
 
 also you can find all releases' files [on releases page.](https://github.com/meh666ran/meAccounting/releases)
 
