@@ -1,4 +1,4 @@
-![meAccountingScreenshots](./screenshots/allscreenshots_v0.0.1alpha.png)
+![meAccountingScreenshots](./screenshots/allscreenshots_v0.8.0-beta.png)
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/meh666ran/meAccounting?include_prereleases)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -30,7 +30,7 @@ $ flutter run
 # Current Release
 Current Released Version is v0.0.1-alpha and You can Access To Apk files from [this link](https://github.com/meh666ran/meAccounting/releases/tag/v0.0.1-alpha).
 
-also you can find all releases files [on releases page.](https://github.com/meh666ran/meAccounting/releases)
+also you can find all releases' files [on releases page.](https://github.com/meh666ran/meAccounting/releases)
 
 # Contribute
 Contributes are always welcome!
