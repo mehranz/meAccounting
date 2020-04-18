@@ -133,7 +133,7 @@ class ExpensesScreen extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  expense.accountTitle,
+                  expense.accountTitle != null ? expense.accountTitle : "Deleted Account",
                   style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(

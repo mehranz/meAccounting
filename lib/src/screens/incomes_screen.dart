@@ -116,7 +116,7 @@ class IncomesScreen extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Text(_income.accountTitle,
+                        Text(_income.accountTitle != null ? _income.accountTitle : "Deleted Account",
                             style: TextStyle(color: Colors.white)),
                         SizedBox(
                           width: 10,
