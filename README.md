@@ -1,18 +1,53 @@
+![meAccountingScreenshots](./screenshots/allscreenshots_v0.0.1alpha.png)
+
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/meh666ran/meAccounting?include_prereleases)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 # meAccounting Personal Accounting App
 meAccounting is a Personal Accounting app Written in Flutter that Simply Helps you to submit and track your expenses and incomes.
 
-``` diff
-- Currently, The App is Unstable and Highly under Development. So Feel Free to Contribute. Your PRs Gonna make me Happy :)
+<strong style="color:red">Currently, The App is Unstable and Highly under Development. So Feel Free to Contribute. Your PRs Gonna make me Happy :)</strong>
+
+I know App's UI may be bad! that's because I'm not front-end guy! so if you can make it beautiful, It'll be great!_
+
+# Run in Debugging Mode
+To run in debugging mode, first you need to [install flutter SDK](https://flutter.dev/docs/get-started/install).
+1. Clone The Project:
+```shell
+$ git clone https://github.com/meh666ran/meAccounting.git && cd meAccounting/
 ```
 
-_I know App's UI may be bad! that's because I'm not front-end guy! so if you can make it beautiful, It'll be great!_
+2. Run `pub get` To get needed dependencies:
+```shell
+$ flutter pub get
+```
 
-There are some screenshot from App's UI above:
-![meAccountingScreenshots](./screenshots/allscreenshots_v0.0.1alpha.png)
+3. Run the application while a device connected:
+```shell
+$ flutter devices # to check if any device exists
+$ flutter run
+```
 
-if you are looking for apk files, [you can find them here.](https://github.com/meh666ran/meAccounting/releases)
+# Current Release
+Current Released Version is v0.0.1-alpha and You can Access To Apk files from [this link](https://github.com/meh666ran/meAccounting/releases/tag/v0.0.1-alpha).
 
-### TODOs:
+also you can find all releases files [on releases page.](https://github.com/meh666ran/meAccounting/releases)
+
+# Contribute
+Contributes are always welcome!
+
+to Contribute:
+1. Fork The Project.
+2. Create a new branch with a suitable name according to what you're changing.
+3. Send a pull request.
+
+# License
+All Codes Written by me in this project are licensed under [GNU General Public License Version 3](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+The GNU General Public License is a free, copyleft license for software and other kinds of works.
+
+You can read all Terms and Conditions in [LICENSE file](./LICENSE).
+
+### TODOs for Version 1:
 - [x] add Incomes
 - [x] remove expenses and income items when dismissed
 - [x] add bank account dropdown selector to add expense screen
