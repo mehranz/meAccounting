@@ -38,7 +38,7 @@ class DatabaseProvider {
 
     var db = await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: initDB,
       onUpgrade: upgradeDB,
     );
@@ -94,6 +94,15 @@ class DatabaseProvider {
         "descriptions TEXT, "
         "created_at DATETIME, "
         "FOREIGN KEY (account_id) REFERENCES accounts(id)"
+        ")");
+
+
+    await db.execute("CREATE TABLE IF NOT EXISTS wish_lists ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "title TEXT, "
+        "amount INT, "
+        "descriptions TEXT, "
+        "created_at DATETIME "
         ")");
 
     // enable forigen keys
