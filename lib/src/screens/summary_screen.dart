@@ -9,6 +9,7 @@ import 'package:meAccounting/src/blocs/incomes_provider.dart';
 import 'package:meAccounting/src/screens/accounts_screen.dart';
 import 'package:meAccounting/src/screens/expenses_screen.dart';
 import 'package:meAccounting/src/screens/incomes_screen.dart';
+import 'package:meAccounting/src/screens/whishlist_screen.dart';
 
 class SummaryScreen extends StatelessWidget {
   /*
@@ -73,6 +74,7 @@ class SummaryScreen extends StatelessWidget {
                   context, "Expenses", Icons.attach_money, ExpensesScreen()),
               _drawerItem(
                   context, "Incomes", Icons.call_received, IncomesScreen()),
+              _drawerItem(context, "Wish List", Icons.shopping_cart, WishListScreen())
             ],
           ),
         ),
