@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meAccounting/src/blocs/accounts_provider.dart';
 import 'package:meAccounting/src/blocs/expenses_provider.dart';
 import 'package:meAccounting/src/blocs/incomes_provider.dart';
+import 'package:meAccounting/src/blocs/wishlist_provider.dart';
 import 'package:meAccounting/src/screens/summary_screen.dart';
 
 class App extends StatelessWidget {
@@ -31,12 +32,14 @@ class App extends StatelessWidget {
      * @param Widget
      * @return Widget
      */
-    return AccountsProvider(
-      child: ExpensesProvider(
-        child: IncomesProvider(
-          child: child,
+    return WishListProvider(
+        child: AccountsProvider(
+          child: ExpensesProvider(
+            child: IncomesProvider(
+              child: child,
+          ),
         ),
-      ),
+      )
     );
   }
 }
