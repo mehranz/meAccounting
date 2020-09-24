@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:meAccounting/src/models/expense_model.dart';
+import 'package:meAccounting/src/models/wishlist_model.dart';
 import 'package:meAccounting/src/res/database/accounts_dao.dart';
 import 'package:meAccounting/src/res/database/expenses_dao.dart';
 import 'package:meAccounting/src/res/database/incomes_dao.dart';
+import 'package:meAccounting/src/res/database/wishlist_dao.dart';
 import '../models/income_model.dart';
 
 import '../models/account_model.dart';
@@ -18,6 +20,7 @@ class Repo {
   final dao = AccountsDAO();
   final expensesDao = ExpensesDAO();
   final incomesDao = IncomesDao();
+  final wishListDao = WishListDao();
 
   Future createAccount(AccountModel account) => dao.createAccount(account);
 
@@ -49,5 +52,9 @@ class Repo {
   Future deleteIncome(IncomeModel income) => incomesDao.deleteIncome(income);
   Future updateIncome(IncomeModel income) => incomesDao.updateIncome(income);
   Future getTotalIncomesFrom(String from) => incomesDao.getTotalIncomesFrom(from);
+
+  Future getWishLists() => wishListDao.getWishLists();
+  Future addNewWishList(WishListModel wishList) => wishListDao.addWishList(wishList);
+  Future deleteWishList(WishListModel wishListModel) => wishListDao.deleteWishList(wishListModel);
   
 }
